@@ -31,8 +31,8 @@ The main/game class will constantly call the fall function one tick at a time an
 How you are breaking down the project and who is responsible for which parts.
 
 A timeline with expected completion dates of parts of the project. (CHANGE THIS!!!!!)
-5/21: Finish the Prototype.
-5/25: Finish the Block class along with a small main to test the mechanics to the game.
-5/28: Complete the main class so that the game functions.
-5/31: Finish any QOL features like scoring, combo, etc.
-Due Date: Finish any extra features like T-spins, back to back tetrises, etc.
+5/21: Finish the Prototype. (Jason/Nathan)
+5/25: Finish the Block class along with a small main to test the mechanics to the game. (Jason)
+5/28: Complete the main class so that the game functions. (Nathan)
+5/31: Finish any QOL features like scoring, combo, etc. (Nathan/Jason)
+Due Date: Finish any extra features like T-spins, back to back tetrises, etc. (Nathan/Jason)

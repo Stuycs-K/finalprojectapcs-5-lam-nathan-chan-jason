@@ -26,6 +26,8 @@ There will be a block class that will contain information about each block as we
 
 The main/game class will constantly call the fall function one tick at a time and the left/right and rotate functions can be called by certain keybinds. When the block is placed down (where the block does not have room to move down), then the checkRow function will scan the entire board to see if the blocks have filled up an entire row. If so, then the clearRow function clears the filled up rows and adds to the current score and combo, depending on what the type of clear is (single, double, tetris, etc).
 
+![Alt text](uml.jpg?raw=true "Adding by Index Diagrams" )
+
 # Intended pacing:
 
 How you are breaking down the project and who is responsible for which parts.

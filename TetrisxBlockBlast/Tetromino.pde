@@ -1,14 +1,17 @@
 
 //when doing rotations, use a 3d array that stores all of the possible rotations so that you can simply call it when rotating a piece
 
-public class Tetromino{
+class Tetromino{
   private int[][] shape;
-  
-  public Tetromino(int[][] shape){
+  private int ccol, crow;
+  public Tetromino(int[][] shape, int[] startingpos){
     this.shape = shape;
+    cx = startingpos[0];
+    cy = startingpos[1];
   }
   
   public void fall(){
+  
     
   }
 }

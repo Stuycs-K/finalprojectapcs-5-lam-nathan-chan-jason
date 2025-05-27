@@ -7,3 +7,15 @@ add the following to the board class
 additional features we forgot
   hold block
 */
+
+public class Board{
+  
+  
+  public boolean checkRow(){
+    
+  }
+  
+  public void clearRow(int row){
+    
+  }
+}

@@ -3,16 +3,12 @@
 
 public class Tetromino{
   private int[][] shape;
-  //private int[] position;
-  //private int[] center;
   
   public Tetromino(int[][] shape){
     this.shape = shape;
-    //position = new int[]{0, 5};//idk the numbers yet
-    //center = new int[]{0, 0};//idk the numbers yet
   }
   
-  public fall(){
+  public void fall(){
     
   }
 }

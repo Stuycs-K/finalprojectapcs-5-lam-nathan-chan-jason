@@ -8,7 +8,7 @@ additional features we forgot
   hold block
 */
 
-public class Board{
+class Board{
   int[][] board;
   
   public Board(){
@@ -16,7 +16,14 @@ public class Board{
   }
   
   public boolean checkRow(){
+    int sumOfBlocks = 0;
+    for (int row = 0; row < 12; row++){
+      for (int column = 0; column < 21; column++){
+        sumOfBlocks += board[row][column];
+      }
+    }
     
+    return sumOfBlocks == 12;
   }
   
   public void clearRow(int row){

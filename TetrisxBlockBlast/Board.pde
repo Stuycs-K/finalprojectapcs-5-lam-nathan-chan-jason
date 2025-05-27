@@ -12,21 +12,32 @@ class Board{
   int[][] board;
   
   public Board(){
-    this.board = new int[21][12];
+    this.board = new int[40][12];
   }
   
-  public boolean checkRow(){
+  public boolean checkRow(int row){
     int sumOfBlocks = 0;
-    for (int row = 0; row < 12; row++){
-      for (int column = 0; column < 21; column++){
-        sumOfBlocks += board[row][column];
-      }
+    for (int column = 0; column < 21; column++){
+      sumOfBlocks += board[row][column];
     }
     
     return sumOfBlocks == 12;
   }
   
-  public void clearRow(int row){
+  public int clearRows(){
+    int addToScore = 0;
+    
+    for (int row = 0; row < 40; row++){
+      if (checkRow(row)){
+        board[row] = new int[12];
+        addToScore += 12;
+      }
+    }
+    
+    return addToScore;
+  }
+  
+  void display(){
     
   }
 }

@@ -1,5 +1,5 @@
 void setup(){
-  size(815, 415);//finalize the numbers here
+  size(415, 815);//finalize the numbers here
 }
 
 void draw(){

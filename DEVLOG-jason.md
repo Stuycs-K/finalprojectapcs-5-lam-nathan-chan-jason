@@ -7,4 +7,5 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-22 - Brief description
 Completed potential UML diagram along with the Prototype. The UML diagram is bound to change.
 
-### 2024-01-03 - Brief description
+### 2025-05-27 - Brief description
+Worked on multiple functions for the Board class like the constructor and the functions to check if a row has filled up and clears it. Tomorrow, I will work on displaying the board properly. 

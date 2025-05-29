@@ -1,5 +1,5 @@
 void setup(){
-  size(800, 804);//finalize the numbers here
+  size(420, 724);//finalize the numbers here
 }
 
 void draw(){
@@ -8,6 +8,6 @@ void draw(){
     b.setmino(new int[]{i, 0}, 1);
   }
   b.display();
-  b.clearRows();
-  b.display();
+  //b.clearRows();
+  //b.display();
 }

@@ -7,7 +7,7 @@ void draw(){
   Tetromino activemino = new Tetromino("i",initpos);
   Board b = new Board();
   b.display();
-  activemino.display();
-  //b.clearRows();
-  //b.display();
+  b.clearRows();
+  b.display();
+  //activemino.display();
 }

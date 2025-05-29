@@ -21,6 +21,7 @@ class Board{
     int sumOfBlocks = 0;
     for (int column = 0; column < 12; column++){
       sumOfBlocks += board[row][column];
+      board[row] = new int[12];
     }
     
     return sumOfBlocks;

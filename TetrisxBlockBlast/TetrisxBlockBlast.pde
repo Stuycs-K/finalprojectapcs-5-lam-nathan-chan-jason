@@ -3,11 +3,16 @@ void setup(){
 }
 
 void draw(){
+  int[] initpos = new int[] {6,30};
+  Tetromino activemino = new Tetromino("i",initpos);
   Board b = new Board();
-  for(int i = 0; i < 12; i++){
-    b.setmino(new int[]{i, 0}, 1);
-  }
   b.display();
+<<<<<<< HEAD
   b.clearRows();
   b.display();
+=======
+  activemino.display();
+  //b.clearRows();
+  //b.display();
+>>>>>>> 8647d4aaec864878b0099b054859b71d7e27de00
 }

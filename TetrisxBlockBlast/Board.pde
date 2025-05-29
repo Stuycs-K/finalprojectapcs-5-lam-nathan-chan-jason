@@ -32,6 +32,7 @@ class Board{
     for (int row = 0; row < 24; row++){
       if (rowSum(row)==12){
         addToScore += 12;
+        board[row] = new int[12];
       }
       pushDown();
     }

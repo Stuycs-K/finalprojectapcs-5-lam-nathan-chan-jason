@@ -8,6 +8,6 @@ void draw(){
     b.setmino(new int[]{i, 0}, 1);
   }
   b.display();
-  //b.clearRows();
-  //b.display();
+  b.clearRows();
+  b.display();
 }

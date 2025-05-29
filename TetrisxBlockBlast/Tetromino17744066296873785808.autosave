@@ -13,8 +13,8 @@ class Tetromino{
 
   private Hashtable<String, int[][]> initshape = new Hashtable<String, int[][]>();
 
-  //initshape.put("i", i);
-  //initshape.put("l",l);
+  initshape.put("i", i);
+  initshape.put("l",l);
 
   private int[][] shape;
   private String shapeident;

@@ -11,21 +11,22 @@ class Tetromino{
   private int[][][] z = new int[][][] {{1,1,0},{0,1,1},{0,0,0}};
   private int[][][] t = new int[][][] {{0,1,0},{1,1,1},{0,0,0}};
 */
-  private Hashtable<String, int[][]> initshape = new Hashtable<String, int[][]>();
+  private Hashtable<String, int[][][]> initshape = new Hashtable<String, int[][][]>();
   private int[][][] shape;
   private String shapeident;
   private int ccol, crow;
+  private int current = 0;
   public Tetromino(String shapeident, int[] startingpos){
     this.shape = shape;
     ccol = startingpos[0];
     crow = startingpos[1];
-    initshape.put("i",i);
+    initshape.put("i",i);/*
     initshape.put("l",l);
     initshape.put("j",j);
     initshape.put("o",o);
     initshape.put("s",s);
     initshape.put("z",z);
-    initshape.put("t",t);
+    initshape.put("t",t);*/
     this.shape = initshape.get(shapeident);
   }
   public void move(int deltax, int deltay){
@@ -44,5 +45,19 @@ class Tetromino{
         }
       }
     }
+  }
+  void display(){
+    int SQUARE_SIZE = 30;
+    int row = height % SQUARE_SIZE, column = width % SQUARE_SIZE;
+    stroke(150);
+    fill(255);
+    for(int i = 0; i<shape[current].length; i++){
+      for(int j = 0;j<shape[current].length; j++){
+        if(shape[current][i][j] == 1){
+          square(SQUARE_SIZE*(ccol-shape[0].length/2+j), SQUARE_SIZE*(crow-shape[0].length/2+i), SQUARE_SIZE);
+        }
+      }
+    }
+    square(row * SQUARE_SIZE, column * SQUARE_SIZE + 2, SQUARE_SIZE);
   }
 }

@@ -49,7 +49,6 @@ class Board{
   }
   
   void display(){
-    int row = height % SQUARE_SIZE, column = width % SQUARE_SIZE;
     stroke(50);
     for (int i = 1; i <= 12; i++){
       for (int j = 0; j < 24; j++){

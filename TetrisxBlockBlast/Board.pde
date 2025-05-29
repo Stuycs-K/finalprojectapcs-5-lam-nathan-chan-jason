@@ -54,10 +54,10 @@ class Board{
     for (int i = 1; i <= 12; i++){
       for (int j = 0; j < 40; j++){
         if (board[j][i - 1] == 0){
-          fill(255);
+          fill(0);
         }
         else{
-          fill(0);
+          fill(255);
         }
         
         square(i * SQUARE_SIZE + 250, j * SQUARE_SIZE + 2, SQUARE_SIZE);

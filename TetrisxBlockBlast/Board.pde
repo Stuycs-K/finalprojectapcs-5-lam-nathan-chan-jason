@@ -39,7 +39,7 @@ class Board{
   }
   
   public void pushDown(){
-    for(int row = 39; row > 0; row--){
+    for(int row = 39; row >= 0; row--){
       if(rowSum(row) == 0){
         for(int i = row; i>0; i--){
           board[row]=board[row-1];

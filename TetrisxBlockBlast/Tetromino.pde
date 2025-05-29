@@ -6,8 +6,8 @@ class Tetromino{
   private int ccol, crow;
   public Tetromino(int[][] shape, int[] startingpos){
     this.shape = shape;
-    cx = startingpos[0];
-    cy = startingpos[1];
+    //cx = startingpos[0];
+    //cy = startingpos[1];
   }
   
   public void fall(){

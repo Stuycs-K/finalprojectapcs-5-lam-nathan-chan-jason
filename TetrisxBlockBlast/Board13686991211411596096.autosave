@@ -50,25 +50,12 @@ class Board{
   
   void display(){
     int row = height % SQUARE_SIZE, column = width % SQUARE_SIZE;
-    stroke(255);
-    for (int i = 1; i <= 12; i++){
-      for (int j = 0; j < 40; j++){
-        if (board[j][i - 1] == 0){
-          fill(255);
-        }
-        else{
-          fill(0);
-        }
-        
-        square(i * SQUARE_SIZE + 250, j * SQUARE_SIZE + 2, SQUARE_SIZE);
+    fill(0);
+    stroke(50);
+    for (int x = 0; x < width - column; x += SQUARE_SIZE){
+      for (int y = 0; y < height - row; y += SQUARE_SIZE){
+        square(x, y, SQUARE_SIZE);
       }
     }
-  }
-  
-  public int getmino(int[] coord){
-    return board[40-coord[1]-1][coord[0]];
-  }
-  public void setmino(int[] coord, int val){
-    board[40-coord[1]-1][coord[0]] = val;
   }
 }

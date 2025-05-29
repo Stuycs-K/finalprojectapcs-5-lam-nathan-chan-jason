@@ -8,4 +8,7 @@ This document must be updated daily every time you finish a work session.
 Completed potential UML diagram along with the Prototype. The UML diagram is bound to change.
 
 ### 2025-05-27 - Brief description
-Worked on multiple functions for the Board class like the constructor and the functions to check if a row has filled up and clears it. Tomorrow, I will work on displaying the board properly. 
+Worked on multiple functions for the Board class like the constructor and the functions to check if a row has filled up and clears it. Tomorrow, I will work on displaying the board properly.
+
+### 2025-05-28 - Brief description
+Worked on the display function of the board. The board now correctly displays the game with the blocks currently placed in it.

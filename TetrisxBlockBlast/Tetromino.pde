@@ -12,7 +12,15 @@ class Tetromino{
   private int[][][] t = new int[][][] {{0,1,0},{1,1,1},{0,0,0}};
 */
   private Hashtable<String, int[][]> initshape = new Hashtable<String, int[][]>();
+<<<<<<< HEAD
   private int[][][] shape;
+=======
+
+  initshape.put("i", i);
+  initshape.put("l",l);
+
+  private int[][] shape;
+>>>>>>> jasonBranch
   private String shapeident;
   private int ccol, crow;
   public Tetromino(String shapeident, int[] startingpos){

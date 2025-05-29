@@ -12,10 +12,6 @@ class Tetromino{
   private int[][] t = new int[][] {{0,1,0},{1,1,1},{0,0,0}};
 
   private Hashtable<String, int[][]> initshape = new Hashtable<String, int[][]>();
-
-  initshape.put("i", i);
-  initshape.put("l",l);
-
   private int[][] shape;
   private String shapeident;
   private int ccol, crow;
@@ -23,7 +19,14 @@ class Tetromino{
     this.shape = shape;
     ccol = startingpos[0];
     crow = startingpos[1];
-
+    initshape.put("i",i);
+    initshape.put("l",l);
+    initshape.put("j",j);
+    initshape.put("o",o);
+    initshape.put("s",s);
+    initshape.put("z",z);
+    initshape.put("t",t);
+    this.shape = initshape.get(shapeident);
   }
   public void move(int deltax, int deltay){
     ccol += deltax;
@@ -31,5 +34,6 @@ class Tetromino{
   }
 
   public void rotate(){
+    
   }
 }

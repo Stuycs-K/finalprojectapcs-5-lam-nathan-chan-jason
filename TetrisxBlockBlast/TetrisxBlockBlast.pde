@@ -2,10 +2,12 @@ private Tetromino activemino;
 private Board board;
 private int frame = 0, speed = 15;
 void setup(){
-  size(450, 720);//finalize the numbers here
+  size(600, 720);//finalize the numbers here
   int[] initpos = new int[] {3,7};
   board = new Board();
   activemino = new Tetromino("i",initpos,board);
+  textSize(48);
+  text("Score", 469, 40);
 }
 
 void draw(){ 
@@ -17,6 +19,8 @@ void draw(){
   }
   //b.clearRows();
   //b.display();
+  int score = 0;
+  text(score, 469, 90);
 }
 void keyPressed(){
   if(key == 120){

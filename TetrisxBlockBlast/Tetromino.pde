@@ -35,18 +35,15 @@ class Tetromino{
   }
 
   public void rotate(boolean CW){
-    int[][] newshape = new int[this.shape.length][this.shape.length];
-    for(int i = 0; i<this.shape.length;i++){
-      for(int j = 0; j<this.shape.length; j++){
-        if(CW){
-
-        }else{
-
-        }
-      }
+    if(CW){
+      current ++;
+    }else{
+      current --; 
     }
+    current = (current+4)%4;
   }
   void display(){
+ 
     int SQUARE_SIZE = 30;
     int row = height % SQUARE_SIZE, column = width % SQUARE_SIZE;
     stroke(150);
@@ -59,5 +56,6 @@ class Tetromino{
         }
       }
     }
-  }
+    text(""+current,10,10);
+}
 }

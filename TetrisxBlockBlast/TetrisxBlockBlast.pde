@@ -2,24 +2,27 @@ private Tetromino activemino;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
 void setup(){
-  size(600, 720);//finalize the numbers here
-  int[] initpos = new int[] {3,7};
-  board = new Board();
-  activemino = new Tetromino("i",initpos,board);
+  background(210);
+  size(600, 720);
   fill(0);
   textSize(48);
   text("Score", 469, 40);
   
-  for (int i = 0; i < 15; i++){
+  int[] initpos = new int[] {3,7};
+  board = new Board();
+  activemino = new Tetromino("i",initpos,board);
+  
+  /*for (int i = 0; i < 15; i++){
     board.setmino(new int[]{i, 0}, 1);
   }
-  
-  //board.setmino(new int[]{0, 0}, 1);
-  //board.setmino(new int[]{0, 23}, 1);
+  board.setmino(new int[]{0, 0}, 1);
+  board.setmino(new int[]{0, 23}, 1);*/
 }
 
 void draw(){
-  background(255);
+  background(210);
+  text("Score", 469, 40);
+  
   board.display();
   activemino.display();
   frame++;
@@ -27,7 +30,6 @@ void draw(){
     frame = 0;
   }
   score += board.clearRows();
-  //b.display();
   
   fill(0);
   text(score, 469, 90);

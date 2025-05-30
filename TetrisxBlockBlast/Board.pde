@@ -60,7 +60,7 @@ class Board{
           fill(255);
         }
         
-        square(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE);
+        square(i * (SQUARE_SIZE), j * (SQUARE_SIZE), SQUARE_SIZE);
       }
     }
   }

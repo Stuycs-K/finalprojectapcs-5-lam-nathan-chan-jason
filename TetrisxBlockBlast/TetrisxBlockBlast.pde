@@ -4,7 +4,7 @@ void setup(){
 
 void draw(){
   int[] initpos = new int[] {7,3};
-  Tetromino activemino = new Tetromino("l",initpos);
+  Tetromino activemino = new Tetromino("z",initpos);
   Board b = new Board();
   b.display();
   activemino.display();

@@ -12,3 +12,6 @@ Worked on multiple functions for the Board class like the constructor and the fu
 
 ### 2025-05-28 - Brief description
 Worked on the display function of the board. The board now correctly displays the game with the blocks currently placed in it.
+
+### 2025-05-29 - Brief description
+Board class should be completed now, if not mostly completed. The functions responsible for clearing rows now fully works along with returning a score.

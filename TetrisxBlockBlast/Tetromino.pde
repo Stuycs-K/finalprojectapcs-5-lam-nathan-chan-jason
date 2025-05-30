@@ -9,17 +9,16 @@ class Tetromino{
   private int[][][] o = new int[][][] {{{0,1,1},{0,1,1},new int[3]},{new int[3],{0,1,1},{0,1,1}},{new int[3],{1,1,0},{1,1,0}},{{1,1,0},{1,1,0},new int[3]}};
   private int[][][] s = new int[][][] {{{0,1,1},{1,1,0},new int[3]},{{0,1,0},{0,1,1},{0,0,1}},{new int[3],{0,1,1},{1,1,0}},{{1,0,0},{1,1,0},{0,1,0}}};
   private int[][][] z = new int[][][] {{{1,1,0},{0,1,1},new int[3]},{{0,0,1},{0,1,1},{0,1,0}},{new int[3],{1,1,0},{0,1,1}},{{0,1,0},{1,1,0},{1,0,0}}};
-  private int[][][] t = new int[][][] {{{0,1,0},{1,1,1},new int[3]},{},{},{}};
-
+  private int[][][] t = new int[][][] {{{0,1,0},{1,1,1},new int[3]},{{0,1,0},{0,1,1},{0,1,0}},{new int[3],{1,1,1},{0,1,0}},{{0,1,0},{1,1,0},{0,1,0}}};
+  private Board board;
   private Hashtable<String, int[][][]> initshape = new Hashtable<String, int[][][]>();
   private int[][][] shape;
-  private String shapeident;
   private int ccol, crow;
   private int current = 0;
-  public Tetromino(String shapeident, int[] startingpos){
-    this.shape = shape;
+  public Tetromino(String shapeident, int[] startingpos, Board board){
     ccol = startingpos[0];
     crow = startingpos[1];
+    this.board = board;
     initshape.put("i",i);
     initshape.put("l",l);
     initshape.put("j",j);
@@ -45,7 +44,6 @@ class Tetromino{
   void display(){
  
     int SQUARE_SIZE = 30;
-    int row = height % SQUARE_SIZE, column = width % SQUARE_SIZE;
     stroke(150);
     strokeWeight(5);
     fill(255);
@@ -56,6 +54,15 @@ class Tetromino{
         }
       }
     }
-    text(""+current,10,10);
-}
+  }
+  public boolean onBoard(){
+    boolean onb = true;
+    for(int i = -1*shape.length/2; i<shape.length-shape.length/2;i++){
+      for(int j = -1*shape.length/2; j<shape.length-shape.length/2; i++){
+        
+      }
+    }
+    return onb;
+  }
+  
 }

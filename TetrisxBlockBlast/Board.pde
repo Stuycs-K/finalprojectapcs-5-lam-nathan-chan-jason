@@ -53,7 +53,7 @@ class Board{
     stroke(50);
     for (int i = 0; i < 15; i++){
       for (int j = 0; j < 24; j++){
-        if (board[j][i] == 0){
+        if (board[j+16][i] == 0){
           fill(10);
         }
         else{
@@ -70,5 +70,8 @@ class Board{
   }
   public void setmino(int[] coord, int val){
     board[24-coord[1]-1][coord[0]] = val;
-  }
+  }/*
+  public boolean emptyIndex(){
+    
+  }*/
 }

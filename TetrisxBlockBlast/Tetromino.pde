@@ -44,25 +44,28 @@ class Tetromino{
 //tetris's actual rotation system uses offset values to do wallkicks. this is it here.
 //O is the initial rotation state, R and L are after one right and left rotation (CW and CCW) respectively, and F is a full 180° rotation.
 
+private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>();
+
 //3x3 tiles
-  private Hashtable<String, int[][]> triple = new Hashtable<String, int[][]>();
-  private final int[][] Ooffsettriple = new int[5][2];
-  private final int[][] Roffsettriple = new int[][] {new int[2],{1,0},{1,-1},{0,2},{1,2}};
-  private final int[][] Foffsettriple = new int[5][2];
-  private final int[][] Loffsettriple = new int[][] {new int[2],{-1,0},{-1,-1},{0,2},{-1,2}};
+  private int[][][] triple = new int[][][]{
+    new int[5][2],
+    {new int[2],{1,0},{1,-1},{0,2},{1,2}},
+    new int[5][2],
+    {new int[2],{-1,0},{-1,-1},{0,2},{-1,2}} 
+  };
   
 //specific O tile  
-  private Hashtable<String,int[][]> square = new Hashtable<String, int[][]>();
-  private final int[][] Ooffsetsquare = new int[][] {{0,0},{0,-1},{-1,-1},{-1,0}};
-  
+  private final int[][][] square = new int[][][] {{{0,0},{0,-1},{-1,-1},{-1,0}}};
+ 
 //5x5 tiles
-  private Hashtable<String,int[][]> penta = new Hashtable<String,int[][]>();
-  private final int[][] Ooffsetpenta = new int[][] {{0,0},{-1,0},{2,0},{-1,0},{2,0}};
-  private final int[][] Roffsetpenta = new int[][] {{-1,0},{0,0},{0,0},{0,1},{0,-2}};
-  private final int[][] Foffsetpenta = new int[][] {{-1,1},{1,1},{-2,1},{1,0},{-2,0}};
-  private final int[][] Loffsetpenta = new int[][] {{0,1},{0,1},{0,1},{0,-1},{0,2}};
+  private int[][][] penta = new int[][][] {
+    {{0,0},{-1,0},{2,0},{-1,0},{2,0}},
+    {{-1,0},{0,0},{0,0},{0,1},{0,-2}},
+    {{-1,1},{1,1},{-2,1},{1,0},{-2,0}},
+    {{0,1},{0,1},{0,1},{0,-1},{0,2}}
+  };
   
-  private Hashtable<String,Hashtable<String,int[][]>> offsets = new Hashtable<String,Hashtable<String,int[][]>>();
+  
   
   
   private Board board;
@@ -75,22 +78,6 @@ class Tetromino{
     col = startingpos[1];
     this.board = board;
     
-    triple.put("0",Ooffsettriple);
-    triple.put("R",Roffsettriple);
-    triple.put("2",Foffsettriple);
-    triple.put("L",Loffsettriple);
-    
-    square.put("0",Ooffsetsquare);
-    
-    penta.put("0",Ooffsetpenta);
-    penta.put("R",Roffsetpenta);
-    penta.put("2",Foffsetpenta);
-    penta.put("L",Loffsetpenta);
-    
-    offsets.put("3x3",triple);
-    offsets.put("O",square);
-    offsets.put("5x5",penta);
-    
     //simplifying selection of shape
     initshape.put("i",i);
     initshape.put("l",l);
@@ -101,21 +88,27 @@ class Tetromino{
     initshape.put("t",t);
     this.shape = initshape.get(shapeident);
     
+    offsets.put("3x3",triple);
+    offsets.put("o",square);
+    offsets.put("5x5",penta);
+    
   }
   public void move(int deltax, int deltay){
     col += deltax;
     row += deltay;
   }
 
-  public void rotate(boolean CW){
+
+  public void rotate(boolean CW){    
     if(CW){
       current ++;
     }else{
       current --; 
     }
     current = (current+4)%4;
-  }
-  void display(){
+    
+  }  
+  public void display(){
  
     int SQUARE_SIZE = 30;
     stroke(150);
@@ -129,10 +122,10 @@ class Tetromino{
       }
     }
   }
-  public boolean onBoard(){
+  public boolean onBoard(int crow,int ccol){
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0; j<shape[current][i].length; j++){
-        if(this.shape[current][i][j] != 0 && !board.emptyIndex(row+i,col+j)){
+        if(this.shape[current][i][j] != 0 && !board.emptyIndex(crow+i,ccol+j)){
           return false;
         }
       }

@@ -34,10 +34,10 @@ void keyPressed(){
 void shift(boolean right){
   if(right){
     activemino.move(1,0);
-    if (! activemino.onBoard()) activemino.move(-1,0);
+    if (! activemino.onBoard(activemino.row,activemino.col)) activemino.move(-1,0);
   }else{
     activemino.move(-1,0);
-    if (! activemino.onBoard()) activemino.move(1,0);
+    if (! activemino.onBoard(activemino.row, activemino.col)) activemino.move(1,0);
   }
   
 }

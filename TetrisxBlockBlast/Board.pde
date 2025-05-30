@@ -14,7 +14,7 @@ class Board{
   int[][] board;
   
   public Board(){
-    this.board = new int[40][15];
+    this.board = new int[24][15];
   }
   
   public int rowSum(int row){
@@ -29,7 +29,7 @@ class Board{
   public int clearRows(){
     int addToScore = 0;
     
-    for (int row = 16; row < 40; row++){
+    for (int row = 0; row < 24; row++){
       if (rowSum(row)==15){
         addToScore += 15;
         board[row] = new int[15];
@@ -40,7 +40,7 @@ class Board{
   }
   
   public void pushDown(){
-    for(int row = 40; row >= 16; row--){
+    for(int row = 23; row >= 0; row--){
       if(rowSum(row) == 0){
         for(int i = row; i>0; i--){
           board[row]=board[row-1];
@@ -53,7 +53,7 @@ class Board{
     stroke(50);
     for (int i = 0; i < 24; i++){
       for (int j = 0; j < 15; j++){
-        if (board[i+16][j] == 0){
+        if (board[i][j] == 0){
           fill(10);
         }
         else{
@@ -66,10 +66,10 @@ class Board{
   }
   
   public int getmino(int[] coord){
-    return board[16+coord[1]][coord[0]];
+    return board[23-coord[1]][coord[0]];
   }
   public void setmino(int[] coord, int val){
-    board[16+coord[1]][coord[0]] = val;
+    board[23-coord[1]][coord[0]] = val;
   }
   public boolean emptyIndex(int row, int col){
     boolean valid = !(row >= 40 || col >=15 || col<0);

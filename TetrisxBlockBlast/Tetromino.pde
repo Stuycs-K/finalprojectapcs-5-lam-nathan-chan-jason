@@ -4,8 +4,8 @@ import java.util.*;
 class Tetromino{
 
   private int[][][] i = new int[][][] {{new int[5], new int[5], {0,1,1,1,1}, new int[5], new int[5]},{new int[5],{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0}},{new int[5],new int[5],{1,1,1,1,0},new int[5],new int[5]},{{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},new int[5]}};
-/*  private int[][][] l = new int[][][] {{0,0,1},{1,1,1},{0,0,0}};
-  private int[][][] j = new int[][][] {{1,0,0},{1,1,1},{0,0,0}};
+  private int[][][] l = new int[][][] {{{0,0,1},{1,1,1},new int[3]},{{0,1,0},{0,1,0},{0,1,1}},{new int[3],{1,1,1},{1,0,0}},{{1,1,0},{0,1,0},{0,1,0}}};
+ /* private int[][][] j = new int[][][] {{1,0,0},{1,1,1},{0,0,0}};
   private int[][][] o = new int[][][] {{0,1,1},{0,1,1},{0,0,0}};
   private int[][][] s = new int[][][] {{0,1,1},{1,1,0},{0,0,0}};
   private int[][][] z = new int[][][] {{1,1,0},{0,1,1},{0,0,0}};
@@ -20,8 +20,8 @@ class Tetromino{
     this.shape = shape;
     ccol = startingpos[0];
     crow = startingpos[1];
-    initshape.put("i",i);/*
-    initshape.put("l",l);
+    initshape.put("i",i);
+    initshape.put("l",l);/*
     initshape.put("j",j);
     initshape.put("o",o);
     initshape.put("s",s);
@@ -58,6 +58,5 @@ class Tetromino{
         }
       }
     }
-    square(row * SQUARE_SIZE, column * SQUARE_SIZE + 2, SQUARE_SIZE);
   }
 }

@@ -14,12 +14,12 @@ class Board{
   int[][] board;
   
   public Board(){
-    this.board = new int[24][12];
+    this.board = new int[24][15];
   }
   
   public int rowSum(int row){
     int sumOfBlocks = 0;
-    for (int column = 0; column < 12; column++){
+    for (int column = 0; column < 15; column++){
       sumOfBlocks += board[row][column];
     }
     
@@ -30,9 +30,9 @@ class Board{
     int addToScore = 0;
     
     for (int row = 0; row < 24; row++){
-      if (rowSum(row)==12){
-        addToScore += 12;
-        board[row] = new int[12];
+      if (rowSum(row)==15){
+        addToScore += 15;
+        board[row] = new int[15];
       }
       pushDown();
     }
@@ -51,16 +51,16 @@ class Board{
   
   void display(){
     stroke(50);
-    for (int i = 1; i <= 12; i++){
+    for (int i = 0; i < 15; i++){
       for (int j = 0; j < 24; j++){
-        if (board[j][i - 1] == 0){
+        if (board[j][i] == 0){
           fill(10);
         }
         else{
           fill(255);
         }
         
-        square(i * SQUARE_SIZE, j * SQUARE_SIZE + 2, SQUARE_SIZE);
+        square(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE);
       }
     }
   }

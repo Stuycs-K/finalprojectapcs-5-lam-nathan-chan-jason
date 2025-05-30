@@ -1,10 +1,10 @@
 void setup(){
-  size(420, 724);//finalize the numbers here
+  size(450, 720);//finalize the numbers here
 }
 
 void draw(){
-  int[] initpos = new int[] {6,30};
-  Tetromino activemino = new Tetromino("i",initpos);
+  int[] initpos = new int[] {7,3};
+  Tetromino activemino = new Tetromino("l",initpos);
   Board b = new Board();
   b.display();
   activemino.display();

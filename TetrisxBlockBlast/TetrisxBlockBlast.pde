@@ -1,25 +1,35 @@
 private Tetromino activemino;
 private Board board;
-private int frame = 0, speed = 15;
+private int frame = 0, speed = 15, score = 0;
 void setup(){
   size(600, 720);//finalize the numbers here
   int[] initpos = new int[] {3,7};
   board = new Board();
   activemino = new Tetromino("i",initpos,board);
+  fill(0);
   textSize(48);
   text("Score", 469, 40);
+  
+  for (int i = 0; i < 15; i++){
+    board.setmino(new int[]{i, 0}, 1);
+  }
+  
+  //board.setmino(new int[]{0, 0}, 1);
+  //board.setmino(new int[]{0, 23}, 1);
 }
 
-void draw(){ 
+void draw(){
+  background(255);
   board.display();
   activemino.display();
   frame++;
   if(frame == speed){
     frame = 0;
   }
-  //b.clearRows();
+  score += board.clearRows();
   //b.display();
-  int score = 0;
+  
+  fill(0);
   text(score, 469, 90);
 }
 void keyPressed(){

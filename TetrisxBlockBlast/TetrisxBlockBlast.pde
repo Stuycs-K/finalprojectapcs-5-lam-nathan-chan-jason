@@ -1,15 +1,20 @@
 private Tetromino activemino;
 private Board board;
+private int frame = 0, speed = 15;
 void setup(){
   size(450, 720);//finalize the numbers here
-  int[] initpos = new int[] {7,3};
-  activemino = new Tetromino("z",initpos,board);
+  int[] initpos = new int[] {3,7};
   board = new Board();
+  activemino = new Tetromino("i",initpos,board);
 }
 
 void draw(){ 
   board.display();
   activemino.display();
+  frame++;
+  if(frame == speed){
+    frame = 0;
+  }
   //b.clearRows();
   //b.display();
 }
@@ -29,8 +34,10 @@ void keyPressed(){
 void shift(boolean right){
   if(right){
     activemino.move(1,0);
+    if (! activemino.onBoard()) activemino.move(-1,0);
   }else{
     activemino.move(-1,0);
+    if (! activemino.onBoard()) activemino.move(1,0);
   }
   
 }

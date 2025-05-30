@@ -3,21 +3,51 @@ import java.util.*;
 
 class Tetromino{
 
-  private int[][][] i = new int[][][] {{new int[5], new int[5], {0,1,1,1,1}, new int[5], new int[5]},{new int[5],{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0}},{new int[5],new int[5],{1,1,1,1,0},new int[5],new int[5]},{{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},new int[5]}};
-  private int[][][] l = new int[][][] {{{0,0,1},{1,1,1},new int[3]},{{0,1,0},{0,1,0},{0,1,1}},{new int[3],{1,1,1},{1,0,0}},{{1,1,0},{0,1,0},{0,1,0}}};
-  private int[][][] j = new int[][][] {{{1,0,0},{1,1,1},{0,0,0}},{{0,1,1},{0,1,0},{0,1,0}},{new int[3],{1,1,1},{0,0,1}},{{0,1,0},{0,1,0},{1,1,1}}};
-  private int[][][] o = new int[][][] {{{0,1,1},{0,1,1},new int[3]},{new int[3],{0,1,1},{0,1,1}},{new int[3],{1,1,0},{1,1,0}},{{1,1,0},{1,1,0},new int[3]}};
-  private int[][][] s = new int[][][] {{{0,1,1},{1,1,0},new int[3]},{{0,1,0},{0,1,1},{0,0,1}},{new int[3],{0,1,1},{1,1,0}},{{1,0,0},{1,1,0},{0,1,0}}};
-  private int[][][] z = new int[][][] {{{1,1,0},{0,1,1},new int[3]},{{0,0,1},{0,1,1},{0,1,0}},{new int[3],{1,1,0},{0,1,1}},{{0,1,0},{1,1,0},{1,0,0}}};
-  private int[][][] t = new int[][][] {{{0,1,0},{1,1,1},new int[3]},{{0,1,0},{0,1,1},{0,1,0}},{new int[3],{1,1,1},{0,1,0}},{{0,1,0},{1,1,0},{0,1,0}}};
+  private int[][][] i = new int[][][] {
+{new int[5], new int[5], {0,1,1,1,1}, new int[5], new int[5]},
+{new int[5],{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0}},
+{new int[5],new int[5],{1,1,1,1,0},new int[5],new int[5]},
+{{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,0,1,0,0},new int[5]}
+};
+  private int[][][] l = new int[][][] {
+{{0,0,1},{1,1,1},new int[3]},
+{{0,1,0},{0,1,0},{0,1,1}},
+{new int[3],{1,1,1},{1,0,0}},
+{{1,1,0},{0,1,0},{0,1,0}}
+};
+  private int[][][] j = new int[][][] {
+  {{1,0,0},{1,1,1},{0,0,0}},
+{{0,1,1},{0,1,0},{0,1,0}},
+{new int[3],{1,1,1},{0,0,1}},
+{{0,1,0},{0,1,0},{1,1,1}}};
+  private int[][][] o = new int[][][] {
+  {{0,1,1},{0,1,1},new int[3]},
+{new int[3],{0,1,1},{0,1,1}},
+{new int[3],{1,1,0},{1,1,0}},
+{{1,1,0},{1,1,0},new int[3]}};
+  private int[][][] s = new int[][][] {
+  {{0,1,1},{1,1,0},new int[3]},
+{{0,1,0},{0,1,1},{0,0,1}},
+{new int[3],{0,1,1},{1,1,0}},
+{{1,0,0},{1,1,0},{0,1,0}}};
+  private int[][][] z = new int[][][] {
+  {{1,1,0},{0,1,1},{0,0,0}},
+{{0,0,1},{0,1,1},{0,1,0}},
+{{0,0,0},{1,1,0},{0,1,1}},
+{{0,1,0},{1,1,0},{1,0,0}}};
+  private int[][][] t = new int[][][] {
+  {{0,1,0},{1,1,1},new int[3]},
+{{0,1,0},{0,1,1},{0,1,0}},
+{new int[3],{1,1,1},{0,1,0}},
+{{0,1,0},{1,1,0},{0,1,0}}};
   private Board board;
   private Hashtable<String, int[][][]> initshape = new Hashtable<String, int[][][]>();
   private int[][][] shape;
-  private int ccol, crow;
+  private int col, row;
   private int current = 0;
   public Tetromino(String shapeident, int[] startingpos, Board board){
-    ccol = startingpos[0];
-    crow = startingpos[1];
+    row = startingpos[0];
+    col = startingpos[1];
     this.board = board;
     initshape.put("i",i);
     initshape.put("l",l);
@@ -29,8 +59,8 @@ class Tetromino{
     this.shape = initshape.get(shapeident);
   }
   public void move(int deltax, int deltay){
-    ccol += deltax;
-    crow += deltay;
+    col += deltax;
+    row += deltay;
   }
 
   public void rotate(boolean CW){
@@ -50,19 +80,20 @@ class Tetromino{
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0;j<shape[current].length; j++){
         if(shape[current][i][j] == 1){
-          square((SQUARE_SIZE)*(ccol-shape[0].length/2+j), (SQUARE_SIZE)*(crow-shape[0].length/2+i), SQUARE_SIZE);
+          square((SQUARE_SIZE)*(col+j), (SQUARE_SIZE)*(row+i), SQUARE_SIZE);
         }
       }
     }
   }
   public boolean onBoard(){
-    boolean onb = true;
-    for(int i = -1*shape.length/2; i<shape.length-shape.length/2;i++){
-      for(int j = -1*shape.length/2; j<shape.length-shape.length/2; i++){
-        
+    for(int i = 0; i<shape[current].length; i++){
+      for(int j = 0; j<shape[current][i].length; j++){
+        if(this.shape[current][i][j] != 0 && !board.emptyIndex(row+i,col+j)){
+          return false;
+        }
       }
     }
-    return onb;
+    return true;
   }
   
 }

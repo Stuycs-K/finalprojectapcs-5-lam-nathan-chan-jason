@@ -14,7 +14,7 @@ class Board{
   int[][] board;
   
   public Board(){
-    this.board = new int[24][15];
+    this.board = new int[40][15];
   }
   
   public int rowSum(int row){
@@ -29,7 +29,7 @@ class Board{
   public int clearRows(){
     int addToScore = 0;
     
-    for (int row = 0; row < 24; row++){
+    for (int row = 16; row < 40; row++){
       if (rowSum(row)==15){
         addToScore += 15;
         board[row] = new int[15];
@@ -40,7 +40,7 @@ class Board{
   }
   
   public void pushDown(){
-    for(int row = 23; row >= 0; row--){
+    for(int row = 40; row >= 16; row--){
       if(rowSum(row) == 0){
         for(int i = row; i>0; i--){
           board[row]=board[row-1];
@@ -51,27 +51,29 @@ class Board{
   
   void display(){
     stroke(50);
-    for (int i = 0; i < 15; i++){
-      for (int j = 0; j < 24; j++){
-        if (board[j+16][i] == 0){
+    for (int i = 0; i < 24; i++){
+      for (int j = 0; j < 15; j++){
+        if (board[i+16][j] == 0){
           fill(10);
         }
         else{
           fill(255);
         }
         
-        square(i * (SQUARE_SIZE), j * (SQUARE_SIZE), SQUARE_SIZE);
+        square(j * (SQUARE_SIZE), i * (SQUARE_SIZE), SQUARE_SIZE);
       }
     }
   }
   
   public int getmino(int[] coord){
-    return board[24-coord[1]-1][coord[0]];
+    return board[16+coord[1]][coord[0]];
   }
   public void setmino(int[] coord, int val){
-    board[24-coord[1]-1][coord[0]] = val;
-  }/*
-  public boolean emptyIndex(){
-    
-  }*/
+    board[16+coord[1]][coord[0]] = val;
+  }
+  public boolean emptyIndex(int row, int col){
+    boolean valid = !(row >= 40 || col >=15 || col<0);
+    boolean empty = (valid && board[row+16][col]==0);
+    return valid && empty;
+  }
 }

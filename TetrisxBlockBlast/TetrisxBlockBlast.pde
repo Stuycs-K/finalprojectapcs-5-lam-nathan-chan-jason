@@ -8,9 +8,9 @@ void setup(){
   textSize(48);
   text("Score", 469, 40);
   
-  int[] initpos = new int[] {3,7};
+  int[] initpos = new int[] {0,5};
   board = new Board();
-  activemino = new Tetromino("i",initpos,board);
+  activemino = new Tetromino("z",initpos,board);
   
   /*for (int i = 0; i < 15; i++){
     board.setmino(new int[]{i, 0}, 1);

@@ -73,7 +73,7 @@ class Board{
   }
   public boolean emptyIndex(int row, int col){
     boolean valid = !(row >= 40 || col >=15 || col<0);
-    boolean empty = (valid && board[row+16][col]==0);
+    boolean empty = (valid && board[row][col]==0);
     return valid && empty;
   }
 }

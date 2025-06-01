@@ -19,7 +19,7 @@ class Tetromino{
   {{1,0,0},{1,1,1},{0,0,0}},
 {{0,1,1},{0,1,0},{0,1,0}},
 {new int[3],{1,1,1},{0,0,1}},
-{{0,1,0},{0,1,0},{1,1,1}}};
+{{0,1,0},{0,1,0},{1,1,0}}};
   private final int[][][] o = new int[][][] {
   {{0,1,1},{0,1,1},new int[3]},
 {new int[3],{0,1,1},{0,1,1}},
@@ -66,8 +66,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
   };
   
   
-  
-  
+  private String shapeIdent;
   private Board board;
   private Hashtable<String, int[][][]> initshape = new Hashtable<String, int[][][]>();
   private int[][][] shape;
@@ -77,6 +76,8 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     row = startingpos[0];
     col = startingpos[1];
     this.board = board;
+    
+    this.shapeIdent = shapeident;
     
     //simplifying selection of shape
     initshape.put("i",i);
@@ -106,6 +107,15 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       current --; 
     }
     current = (current+4)%4;
+    int[] testoff = new int[2];
+    for(int i = 0; i<5; i++){
+      testoff = calcOffset(CW, i);
+      if (onBoard(row-testoff[1],col+testoff[0])){
+        break;
+      }
+    }
+    row -= testoff[1];
+    col += testoff[0];
     
   }  
   public void display(){
@@ -132,5 +142,40 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     }
     return true;
   }
-  
+  public int[] calcOffset(boolean CW, int testNo){
+    int[][][] subOffset;
+    if(this.shape[current].length == 3){
+      if(shapeIdent == "o"){
+        subOffset = offsets.get("o");
+        int[] testoff;
+        if(CW){
+          testoff = subOffset[0][(current+3)%4];}
+        else{
+          testoff = subOffset[0][(current+1)%4];}
+        int[] diffoff = subOffset[0][current];
+        int[] finaloff = {testoff[0]-diffoff[0], testoff[1]-diffoff[1]};
+        return finaloff;
+      }else{
+        subOffset = offsets.get("3x3");
+      }
+    }else{
+      subOffset = offsets.get("5x5");
+    }
+    
+    int[][] initvals;
+    int[][] changevals = subOffset[current];
+    if (CW){
+      initvals = subOffset[(current+3)%4];
+    }else{
+      initvals = subOffset[(current + 1)%4];
+    }
+    
+    int[] testoff = new int[] {initvals[testNo][0],initvals[testNo][1]};
+
+    int[] diffoff = new int[] {changevals[testNo][0],changevals[testNo][1]};
+    testoff[0] -= diffoff[0];
+    testoff[1] -= diffoff[1];
+    return testoff;
+    
+  }
 }

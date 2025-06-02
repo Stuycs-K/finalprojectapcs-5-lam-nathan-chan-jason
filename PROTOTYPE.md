@@ -28,7 +28,7 @@ The Board class will contain information about the board itself. It has the boar
 
 The main/game class will draw the game and UI, constantly call the ~fall~move function one tick at a time and the left/right and rotate functions can be called by certain keybinds. ~When the block is placed down (where the block does not have room to move down), then the checkRow function will scan the entire board to see if the blocks have filled up an entire row. If so, then the clearRow function clears the filled up rows and adds to the current score and combo, depending on what the type of clear is (single, double, tetris, etc).~
 
-![Alt text](uml.jpg?raw=true "Adding by Index Diagrams" )
+![Alt text](actualUML.jpg?raw=true "Adding by Index Diagrams" )
 
 # Intended pacing:
 

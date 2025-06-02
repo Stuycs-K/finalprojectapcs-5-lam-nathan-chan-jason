@@ -102,6 +102,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     while(onBoard(row+1, col)){
       row++;
     }
+    transfer();
   }
   public void transfer(){
     for(int i = 0; i<shape[current].length; i++){

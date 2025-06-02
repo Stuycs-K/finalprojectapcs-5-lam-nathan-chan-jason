@@ -11,7 +11,7 @@ void setup(){
   
   int[] initpos = new int[] {0,5};
   board = new Board();
-  activemino = new Tetromino("i",initpos,board);
+  activemino = genMino();
 }
 
 void draw(){
@@ -32,7 +32,7 @@ void run(){
       activemino.move(0,1);
     }else{
       activemino.transfer();
-      activemino = new Tetromino("i",new int[]{0,5},board);
+      activemino = genMino();
     }
     score += board.clearRows();
   }
@@ -50,7 +50,14 @@ void keyPressed(){
     shift(true);
   }else if(keyCode == 40){
     activemino.fastFall();
+    activemino = genMino();
   }
+}
+
+Tetromino genMino(){
+  String[] tetrominoidents = new String[]{"o","j","l","z","s","i"};
+  int idx = (int)(Math.random() * tetrominoidents.length);
+  return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
 }
 
 void shift(boolean right){

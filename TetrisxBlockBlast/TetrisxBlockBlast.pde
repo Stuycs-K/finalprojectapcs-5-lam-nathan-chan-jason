@@ -1,4 +1,4 @@
-private Tetromino activemino;
+private Tetromino activemino, heldmino, nextmino;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
 private int counter = 0;
@@ -11,7 +11,8 @@ void setup(){
   
   int[] initpos = new int[] {0,5};
   board = new Board();
-  activemino = genMino();
+  activemino = new Tetromino(genMino(),new int[]{0,5},board);
+  nextmino = new Tetromino(genMino(),new int[]{0,5},board);
 }
 
 void draw(){
@@ -22,6 +23,7 @@ void draw(){
   fill(0);
   text(score, 469, 90);
   run();
+  
 }
 
 void run(){
@@ -32,7 +34,8 @@ void run(){
       activemino.move(0,1);
     }else{
       activemino.transfer();
-      activemino = genMino();
+      activemino = nextmino;
+      nextmino = new Tetromino(genMino(), new int[]{0,5},board);
     }
     score += board.clearRows();
   }
@@ -50,14 +53,15 @@ void keyPressed(){
     shift(true);
   }else if(keyCode == 40){
     activemino.fastFall();
-    activemino = genMino();
+    activemino = nextmino;
+    nextmino = new Tetromino(genMino(),new int[]{0,5},board);
   }
 }
 
-Tetromino genMino(){
+String genMino(){
   String[] tetrominoidents = new String[]{"o","j","l","z","s","i"};
   int idx = (int)(Math.random() * tetrominoidents.length);
-  return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
+  return tetrominoidents[idx];
 }
 
 void shift(boolean right){

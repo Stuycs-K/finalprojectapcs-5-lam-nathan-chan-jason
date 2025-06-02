@@ -70,7 +70,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
   private Board board;
   private Hashtable<String, int[][][]> initshape = new Hashtable<String, int[][][]>();
   private int[][][] shape;
-  private int col, row;
+  public int col, row;
   private int current = 0;
   public Tetromino(String shapeident, int[] startingpos, Board board){
     row = startingpos[0];
@@ -98,7 +98,20 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     col += deltax;
     row += deltay;
   }
-
+  public void fastFall(){
+    while(onBoard(row+1, col)){
+      row++;
+    }
+  }
+  public void transfer(){
+    for(int i = 0; i<shape[current].length; i++){
+      for(int j = 0; j<shape[current].length;j++){
+        if (this.shape[current][i][j] != 0){
+          this.board.setmino(new int[]{row+i,col+j},1);
+        }
+      }
+    }
+  }
 
   public void rotate(boolean CW){    
     if(CW){

@@ -1,6 +1,7 @@
 private Tetromino activemino;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
+private int counter = 0;
 void setup(){
   background(210);
   size(600, 720);
@@ -10,30 +11,33 @@ void setup(){
   
   int[] initpos = new int[] {0,5};
   board = new Board();
-  activemino = new Tetromino("z",initpos,board);
-  
-  /*for (int i = 0; i < 15; i++){
-    board.setmino(new int[]{i, 0}, 1);
-  }
-  board.setmino(new int[]{0, 0}, 1);
-  board.setmino(new int[]{0, 23}, 1);*/
+  activemino = new Tetromino("i",initpos,board);
 }
 
 void draw(){
   background(210);
   text("Score", 469, 40);
-  
   board.display();
   activemino.display();
-  frame++;
-  if(frame == speed){
-    frame = 0;
-  }
-  score += board.clearRows();
-  
   fill(0);
   text(score, 469, 90);
+  run();
 }
+
+void run(){
+  frame++;
+  if(frame%speed == 0){
+    frame = 0;
+    if(activemino.onBoard(activemino.row+1, activemino.col)){
+      activemino.move(0,1);
+    }else{
+      activemino.transfer();
+      activemino = new Tetromino("i",new int[]{0,5},board);
+    }
+    score += board.clearRows();
+  }
+}
+
 void keyPressed(){
   if(key == 120){
     activemino.rotate(true);
@@ -44,6 +48,8 @@ void keyPressed(){
     shift(false);
   }else if(keyCode == 39){
     shift(true);
+  }else if(keyCode == 40){
+    activemino.fastFall();
   }
 }
 

@@ -55,7 +55,7 @@ void keyPressed(){
 }
 
 Tetromino genMino(){
-  String[] tetrominoidents = new String[]{"o","j","l","z","s","i"};
+  String[] tetrominoidents = new String[]{"o","j","l","z","s","i","t"};
   int idx = (int)(Math.random() * tetrominoidents.length);
   return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
 }

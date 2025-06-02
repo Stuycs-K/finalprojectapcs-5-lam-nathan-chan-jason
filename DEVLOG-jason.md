@@ -15,3 +15,9 @@ Worked on the display function of the board. The board now correctly displays th
 
 ### 2025-05-29 - Brief description
 Board class should be completed now, if not mostly completed. The functions responsible for clearing rows now fully works along with returning a score.
+
+### 2025-05-30 - Brief description
+Fully fixed board class and UI, game fully functional.
+
+### 2025-06-01 - Brief description
+Finalized some parts of game and finalized prototype and UML diagram.

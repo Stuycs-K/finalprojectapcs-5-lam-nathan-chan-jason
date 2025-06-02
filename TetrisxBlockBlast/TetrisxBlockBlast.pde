@@ -58,8 +58,13 @@ void keyPressed(){
   }
 }
 
+<<<<<<< HEAD
 String genMino(){
   String[] tetrominoidents = new String[]{"o","j","l","z","s","i"};
+=======
+Tetromino genMino(){
+  String[] tetrominoidents = new String[]{"o","j","l","z","s","i","t"};
+>>>>>>> f59119f038f73da4bd9e0d868d46ac6947fd9ed4
   int idx = (int)(Math.random() * tetrominoidents.length);
   return tetrominoidents[idx];
 }

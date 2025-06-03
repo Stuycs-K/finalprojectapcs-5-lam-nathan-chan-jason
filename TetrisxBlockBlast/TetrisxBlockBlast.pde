@@ -45,10 +45,15 @@ void setup(){
   text("Hold", 469, 300);
 
   board = new Board();
+<<<<<<< HEAD
+  activemino = newMino();
+  nextmino = newMino();
+=======
   activemino = new Tetromino(genMino(),new int[]{0,5},board);
   nextmino = new Tetromino(genMino(),new int[]{0,5},board);
   heldmino = null;
   alreadyClickedHeld = false;
+>>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
 }
 
 void draw(){
@@ -77,8 +82,12 @@ void run(){
     }else{
       activemino.transfer();
       activemino = nextmino;
+<<<<<<< HEAD
+      nextmino = newMino();
+=======
       nextmino = new Tetromino(genMino(), new int[]{0,5},board);
       alreadyClickedHeld = false;
+>>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
     }
     score += board.clearRows();
   }
@@ -98,6 +107,9 @@ void keyPressed(){
   }else if(keyCode == 40){
     activemino.fastFall();
     activemino = nextmino;
+<<<<<<< HEAD
+    nextmino = newMino();
+=======
     nextmino = new Tetromino(genMino(),new int[]{0,5},board);
     alreadyClickedHeld = false;
   }else if (key == 'c'){
@@ -114,6 +126,7 @@ void keyPressed(){
       nextmino = new Tetromino(genMino(),new int[]{0,5},board);
       alreadyClickedHeld = true;
     }
+>>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
   }
 }
 
@@ -122,6 +135,15 @@ String genMino(){
   int idx = (int)(Math.random() * tetrominoidents.length);
   return tetrominoidents[idx];
   //return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
+}
+
+Tetromino newMino(){
+  String genIdent = genMino();
+  if (genIdent == "i"){
+    return new Tetromino(genIdent,new int[] {0,5},board);
+  }else{
+    return new Tetromino(genIdent,new int[] {0,6},board);
+  }
 }
 
 void shift(boolean right){

@@ -1,6 +1,7 @@
 private Tetromino activemino, heldmino, nextmino;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
+private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {50,50,50};
@@ -45,6 +46,8 @@ void setup(){
   board = new Board();
   activemino = new Tetromino(genMino(),new int[]{0,5},board);
   nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+  heldmino = null;
+  alreadyClickedHeld = false;
 }
 
 void draw(){
@@ -54,6 +57,9 @@ void draw(){
   board.display();
   activemino.display();
   nextmino.displayNext();
+  if (heldmino != null){
+    heldmino.display();
+  }
   fill(0);
   text(score, 469, 90);
   run();
@@ -70,6 +76,7 @@ void run(){
       activemino.transfer();
       activemino = nextmino;
       nextmino = new Tetromino(genMino(), new int[]{0,5},board);
+      alreadyClickedHeld = false;
     }
     score += board.clearRows();
   }
@@ -81,6 +88,7 @@ void keyPressed(){
   }else if(key == 122){
     activemino.rotate(false);
   }
+  
   if (keyCode == 37){
     shift(false);
   }else if(keyCode == 39){
@@ -89,6 +97,21 @@ void keyPressed(){
     activemino.fastFall();
     activemino = nextmino;
     nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+    alreadyClickedHeld = false;
+  }else if (key == 'c'){
+    if (!alreadyClickedHeld){
+      if (heldmino == null){
+        heldmino = activemino;
+        activemino = nextmino;
+      }else{
+        Tetromino swapTemp = heldmino;
+        heldmino = activemino;
+        activemino = swapTemp;
+      }
+      
+      nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+      alreadyClickedHeld = true;
+    }
   }
 }
 

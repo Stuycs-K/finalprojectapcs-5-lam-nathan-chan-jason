@@ -42,6 +42,7 @@ void setup(){
   textSize(48);
   text("Score", 469, 40);
   text("Next", 469, 150);
+  text("Hold", 469, 300);
 
   board = new Board();
   activemino = new Tetromino(genMino(),new int[]{0,5},board);
@@ -54,11 +55,12 @@ void draw(){
   background(210);
   text("Score", 469, 40);
   text("Next", 469, 150);
+  text("Hold", 469, 300);
   board.display();
   activemino.display();
-  nextmino.displayNext();
+  nextmino.displayInUI("next");
   if (heldmino != null){
-    heldmino.display();
+    heldmino.displayInUI("hold");
   }
   fill(0);
   text(score, 469, 90);

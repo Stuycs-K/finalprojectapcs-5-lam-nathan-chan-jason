@@ -148,18 +148,27 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     }
   }
   
-  public void displayNext(){
+  public void displayInUI(String where){
     int SQUARE_SIZE = 20;
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0;j<shape[current].length; j++){
         int select = shape[current][i][j];
         if(select != 0){
           float[] co = colors.get(colorRef.get(select));
-          if (this.shapeIdent == "i"){
-            displayMino(23 + j, 8 + i, co,SQUARE_SIZE);
-          }
-          else{
-            displayMino(24 + j, 9 + i, co,SQUARE_SIZE);
+          if (where == "next"){
+            if (this.shapeIdent == "i"){
+              displayMino(23 + j, 8 + i, co,SQUARE_SIZE);
+            }
+            else{
+              displayMino(24 + j, 9 + i, co,SQUARE_SIZE);
+            }
+          }else if (where == "hold"){
+            if (this.shapeIdent == "i"){
+              displayMino(23 + j, 15 + i, co,SQUARE_SIZE);
+            }
+            else{
+              displayMino(24 + j, 16 + i, co,SQUARE_SIZE);
+            }
           }
         }
       }

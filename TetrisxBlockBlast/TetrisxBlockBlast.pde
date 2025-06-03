@@ -4,20 +4,19 @@ private int frame = 0, speed = 15, score = 0;
 private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
-  final float[] empt = {50,50,50};
-  final float[] ci = new float[]{0,255,255};
-  final float[] co = new float[]{255,255,0};
-  final float[] cl = new float[]{255,127,0};
-  final float[] cj = new float[]{0,0,255};
-  final float[] cs = new float[]{0,255,0};
-  final float[] cz = new float[]{255,0,0};
-  final float[] ct = new float[]{128,0,128};
-
+  final float[] empt = {0,0,20};
+  final float[] ci = new float[]{200,100,50};
+  final float[] co = new float[]{50,100,50};
+  final float[] cl = new float[]{30,100,50};
+  final float[] cj = new float[]{240,70,50};
+  final float[] cs = new float[]{120,70,50};
+  final float[] cz = new float[]{0,70,50};
+  final float[] ct = new float[]{300,70,50};
 
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
-
+  colorMode(HSB,360,100,100);
   colorRef.put(0,"empty");
   colorRef.put(1,"i");
   colorRef.put(2,"l");
@@ -44,15 +43,10 @@ void setup(){
   text("Next", 469, 150);
 
   board = new Board();
-<<<<<<< HEAD
   activemino = newMino();
   nextmino = newMino();
-=======
-  activemino = new Tetromino(genMino(),new int[]{0,5},board);
-  nextmino = new Tetromino(genMino(),new int[]{0,5},board);
   heldmino = null;
   alreadyClickedHeld = false;
->>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
 }
 
 void draw(){
@@ -80,12 +74,8 @@ void run(){
     }else{
       activemino.transfer();
       activemino = nextmino;
-<<<<<<< HEAD
       nextmino = newMino();
-=======
-      nextmino = new Tetromino(genMino(), new int[]{0,5},board);
       alreadyClickedHeld = false;
->>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
     }
     score += board.clearRows();
   }
@@ -105,10 +95,7 @@ void keyPressed(){
   }else if(keyCode == 40){
     activemino.fastFall();
     activemino = nextmino;
-<<<<<<< HEAD
     nextmino = newMino();
-=======
-    nextmino = new Tetromino(genMino(),new int[]{0,5},board);
     alreadyClickedHeld = false;
   }else if (key == 'c'){
     if (!alreadyClickedHeld){
@@ -124,7 +111,6 @@ void keyPressed(){
       nextmino = new Tetromino(genMino(),new int[]{0,5},board);
       alreadyClickedHeld = true;
     }
->>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
   }
 }
 

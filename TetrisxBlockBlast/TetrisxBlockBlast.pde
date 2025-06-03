@@ -103,11 +103,11 @@ void keyPressed(){
   }else if (key == 'c'){
     if (!alreadyClickedHeld){
       if (heldmino == null){
-        heldmino = activemino;
+        heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = nextmino;
       }else{
-        Tetromino swapTemp = heldmino;
-        heldmino = activemino;
+        Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
+        heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = swapTemp;
       }
       

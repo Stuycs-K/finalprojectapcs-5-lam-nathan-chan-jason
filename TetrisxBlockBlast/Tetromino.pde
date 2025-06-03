@@ -222,4 +222,8 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     
   }
   
+  public String getShapeIdent(){
+    return shapeIdent;
+  }
+  
 }

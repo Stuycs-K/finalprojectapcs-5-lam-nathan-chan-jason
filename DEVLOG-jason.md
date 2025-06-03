@@ -21,3 +21,6 @@ Fully fixed board class and UI, game fully functional.
 
 ### 2025-06-01 - Brief description
 Finalized some parts of game and finalized prototype and UML diagram.
+
+### 2025-06-02 - Brief description
+The game now displays the next upcoming block block in the UI.

@@ -1,6 +1,7 @@
 private Tetromino activemino, heldmino, nextmino;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
+private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {50,50,50};
@@ -43,8 +44,15 @@ void setup(){
   text("Next", 469, 150);
 
   board = new Board();
+<<<<<<< HEAD
   activemino = newMino();
   nextmino = newMino();
+=======
+  activemino = new Tetromino(genMino(),new int[]{0,5},board);
+  nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+  heldmino = null;
+  alreadyClickedHeld = false;
+>>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
 }
 
 void draw(){
@@ -54,6 +62,9 @@ void draw(){
   board.display();
   activemino.display();
   nextmino.displayNext();
+  if (heldmino != null){
+    heldmino.display();
+  }
   fill(0);
   text(score, 469, 90);
   run();
@@ -69,7 +80,12 @@ void run(){
     }else{
       activemino.transfer();
       activemino = nextmino;
+<<<<<<< HEAD
       nextmino = newMino();
+=======
+      nextmino = new Tetromino(genMino(), new int[]{0,5},board);
+      alreadyClickedHeld = false;
+>>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
     }
     score += board.clearRows();
   }
@@ -81,6 +97,7 @@ void keyPressed(){
   }else if(key == 122){
     activemino.rotate(false);
   }
+  
   if (keyCode == 37){
     shift(false);
   }else if(keyCode == 39){
@@ -88,7 +105,26 @@ void keyPressed(){
   }else if(keyCode == 40){
     activemino.fastFall();
     activemino = nextmino;
+<<<<<<< HEAD
     nextmino = newMino();
+=======
+    nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+    alreadyClickedHeld = false;
+  }else if (key == 'c'){
+    if (!alreadyClickedHeld){
+      if (heldmino == null){
+        heldmino = activemino;
+        activemino = nextmino;
+      }else{
+        Tetromino swapTemp = heldmino;
+        heldmino = activemino;
+        activemino = swapTemp;
+      }
+      
+      nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+      alreadyClickedHeld = true;
+    }
+>>>>>>> 635b6dbbcf72f9209a1f7c7b96b2e87bcfbda800
   }
 }
 

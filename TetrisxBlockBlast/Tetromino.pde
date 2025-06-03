@@ -146,6 +146,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       }
     }
   }
+  
   public boolean onBoard(int crow,int ccol){
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0; j<shape[current][i].length; j++){

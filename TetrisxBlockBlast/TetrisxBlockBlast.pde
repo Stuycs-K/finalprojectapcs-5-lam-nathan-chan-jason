@@ -5,13 +5,13 @@ private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20};
-  final float[] ci = new float[]{200,100,50};
-  final float[] co = new float[]{50,100,50};
-  final float[] cl = new float[]{30,100,50};
-  final float[] cj = new float[]{240,70,50};
-  final float[] cs = new float[]{120,70,50};
-  final float[] cz = new float[]{0,70,50};
-  final float[] ct = new float[]{300,70,50};
+  final float[] ci = new float[]{180,100,100};
+  final float[] co = new float[]{50,100,100};
+  final float[] cl = new float[]{39,100,100};
+  final float[] cj = new float[]{240,100,100};
+  final float[] cs = new float[]{120,100,100};
+  final float[] cz = new float[]{0,100,100};
+  final float[] ct = new float[]{277,87,100};
 
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
@@ -148,13 +148,12 @@ void shift(boolean right){
   }
   noStroke();
   fill(color(col[0],col[1],col[2]));
-  println("Color for "  + ": " + Arrays.toString(co));
   square(size*initcol, size*initrow, size);
-  fill(color(col[0]*.8,col[1]*.8,col[2]*.8));
+  fill(color(col[0],col[1],col[2]*.8));
   quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/6),(size*(initrow+1)-(size/6)),(size*initcol)+(size/6),(size*initrow)+(size/6));
   quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow)+(size/6));
-  fill(color(col[0]*1.5,col[1]*1.5,col[2]*1.5));
+  fill(color(col[0],col[1]*.6,col[2]));
   quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
-  fill(color(col[0]*.5,col[1]*.5,col[2]*.5));
+  fill(color(col[0],col[1],col[2]*.5));
   quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
 }

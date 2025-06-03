@@ -148,6 +148,24 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     }
   }
   
+  public void displayNext(){
+    int SQUARE_SIZE = 20;
+    for(int i = 0; i<shape[current].length; i++){
+      for(int j = 0;j<shape[current].length; j++){
+        int select = shape[current][i][j];
+        if(select != 0){
+          float[] co = colors.get(colorRef.get(select));
+          if (this.shapeIdent == "i"){
+            displayMino(23 + j, 8 + i, co,SQUARE_SIZE);
+          }
+          else{
+            displayMino(24 + j, 9 + i, co,SQUARE_SIZE);
+          }
+        }
+      }
+    }
+  }
+  
   public boolean onBoard(int crow,int ccol){
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0; j<shape[current][i].length; j++){

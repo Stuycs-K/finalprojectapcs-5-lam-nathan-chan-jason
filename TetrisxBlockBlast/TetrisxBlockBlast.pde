@@ -1,16 +1,47 @@
-private Tetromino activemino, nextmino;
+private Tetromino activemino, heldmino, nextmino;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
-private int counter = 0;
+
+public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
+  final float[] empt = {50,50,50};
+  final float[] ci = new float[]{0,255,255};
+  final float[] co = new float[]{255,255,0};
+  final float[] cl = new float[]{255,127,0};
+  final float[] cj = new float[]{0,0,255};
+  final float[] cs = new float[]{0,255,0};
+  final float[] cz = new float[]{255,0,0};
+  final float[] ct = new float[]{128,0,128};
+
+
+public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
+
 void setup(){
+
+  colorRef.put(0,"empty");
+  colorRef.put(1,"i");
+  colorRef.put(2,"l");
+  colorRef.put(3,"j");
+  colorRef.put(4,"o");
+  colorRef.put(5,"s");
+  colorRef.put(6,"z");
+  colorRef.put(7,"t");
+
+  colors.put("empty",empt);
+  colors.put("i",ci);
+  colors.put("o",co);
+  colors.put("l",cl);
+  colors.put("j",cj);
+  colors.put("s",cs);
+  colors.put("z",cz);
+  colors.put("t",ct);
+
   background(210);
   size(600, 720);
   fill(0);
   textSize(48);
   text("Score", 469, 40);
   text("Next", 469, 150);
-  
-  int[] initpos = new int[] {0,5};
+
   board = new Board();
   activemino = new Tetromino(genMino(),new int[]{0,5},board);
   nextmino = new Tetromino(genMino(),new int[]{0,5},board);
@@ -26,6 +57,7 @@ void draw(){
   fill(0);
   text(score, 469, 90);
   run();
+
 }
 
 void run(){
@@ -37,7 +69,7 @@ void run(){
     }else{
       activemino.transfer();
       activemino = nextmino;
-      nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+      nextmino = new Tetromino(genMino(), new int[]{0,5},board);
     }
     score += board.clearRows();
   }
@@ -75,5 +107,21 @@ void shift(boolean right){
     activemino.move(-1,0);
     if (! activemino.onBoard(activemino.row, activemino.col)) activemino.move(1,0);
   }
-  
+}
+  void displayMino(int initcol, int initrow, float[]col,int size){
+  float[] colo = new float[3];
+  for (int i = 0; i<3; i++){
+    colo[i]=col[i]/1.5;
+  }
+  noStroke();
+  fill(color(col[0],col[1],col[2]));
+  println("Color for "  + ": " + Arrays.toString(co));
+  square(size*initcol, size*initrow, size);
+  fill(color(col[0]*.8,col[1]*.8,col[2]*.8));
+  quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/6),(size*(initrow+1)-(size/6)),(size*initcol)+(size/6),(size*initrow)+(size/6));
+  quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow)+(size/6));
+  fill(color(col[0]*1.5,col[1]*1.5,col[2]*1.5));
+  quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
+  fill(color(col[0]*.5,col[1]*.5,col[2]*.5));
+  quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
 }

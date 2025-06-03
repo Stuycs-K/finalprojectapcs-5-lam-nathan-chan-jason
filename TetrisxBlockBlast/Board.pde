@@ -20,7 +20,9 @@ class Board{
   public int rowSum(int row){
     int sumOfBlocks = 0;
     for (int column = 0; column < 15; column++){
-      sumOfBlocks += board[row][column];
+      if(board[row][column] != 0){
+        sumOfBlocks++;
+      }
     }
     
     return sumOfBlocks;
@@ -49,17 +51,11 @@ class Board{
     board[0] = new int[15];
   }
   void display(){
-    stroke(50);
+    
     for (int i = 0; i < 24; i++){
       for (int j = 0; j < 15; j++){
-        if (board[i][j] == 0){
-          fill(10);
-        }
-        else{
-          fill(255);
-        }
-        
-        square(j * (SQUARE_SIZE), i * (SQUARE_SIZE), SQUARE_SIZE);
+        float[] colarr = colors.get(colorRef.get(board[i][j]));
+        displayMino(j,i,colarr,SQUARE_SIZE);
       }
     }
   }
@@ -69,7 +65,6 @@ class Board{
   }
   public void setmino(int[] coord, int val){
     board[coord[0]][coord[1]] = val;
-    System.out.println(coord[0]+" "+coord[1]);
   }
   public boolean emptyIndex(int row, int col){
     return (!(row >= 24 || col >=15 || col<0))&&(board[row][col]==0);

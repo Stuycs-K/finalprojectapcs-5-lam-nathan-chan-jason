@@ -1,4 +1,6 @@
 private Tetromino activemino, heldmino, nextmino;
+private String[] bucket;
+private int bucketplace = 0;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
 private boolean alreadyClickedHeld;
@@ -11,7 +13,7 @@ public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] cj = new float[]{240,100,100};
   final float[] cs = new float[]{120,100,100};
   final float[] cz = new float[]{0,100,100};
-  final float[] ct = new float[]{277,87,100};
+  final float[] ct = new float[]{277,100,85};
 
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
@@ -44,8 +46,9 @@ void setup(){
   text("Hold", 469, 300);
 
   board = new Board();
-  activemino = newMino();
-  nextmino = newMino();
+  bucket = genBucket();
+  activemino = newMino(bucket[bucketplace]);
+  nextmino = newMino(bucket[bucketplace+1]);
   heldmino = null;
   alreadyClickedHeld = false;
 }
@@ -76,7 +79,7 @@ void run(){
     }else{
       activemino.transfer();
       activemino = nextmino;
-      nextmino = newMino();
+      progressMinoes();
       alreadyClickedHeld = false;
     }
     score += board.clearRows();
@@ -97,7 +100,7 @@ void keyPressed(){
   }else if(keyCode == 40){
     activemino.fastFall();
     activemino = nextmino;
-    nextmino = newMino();
+    progressMinoes();
     alreadyClickedHeld = false;
   }else if (key == 'c'){
     if (!alreadyClickedHeld){
@@ -109,11 +112,38 @@ void keyPressed(){
         heldmino = activemino;
         activemino = swapTemp;
       }
-      
-      nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+      progressMinoes();
       alreadyClickedHeld = true;
     }
   }
+}
+String[] genBucket(){
+  ArrayList<String> tetrominoidents = new ArrayList<String>();
+  tetrominoidents.add("i");
+  tetrominoidents.add("o");
+  tetrominoidents.add("l");
+  tetrominoidents.add("j");
+  tetrominoidents.add("s");
+  tetrominoidents.add("z");
+  tetrominoidents.add("t");
+  String[] bucket = new String[tetrominoidents.size()];
+  int i = 0;
+  while (tetrominoidents.size()>0){
+    int idx = (int)(Math.random()*tetrominoidents.size());
+    bucket[i] = tetrominoidents.get(idx);
+    i++;
+    tetrominoidents.remove(idx);
+  }
+  return bucket;
+}
+
+void progressMinoes(){
+  bucketplace++;
+  if (bucketplace == 6){
+    bucketplace = -1;
+    bucket = genBucket();
+  }
+  nextmino = newMino(bucket[bucketplace+1]);
 }
 
 String genMino(){
@@ -123,12 +153,11 @@ String genMino(){
   //return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
 }
 
-Tetromino newMino(){
-  String genIdent = genMino();
-  if (genIdent == "i"){
-    return new Tetromino(genIdent,new int[] {0,5},board);
+Tetromino newMino(String ident){
+  if (ident == "i"){
+    return new Tetromino(ident,new int[] {0,5},board);
   }else{
-    return new Tetromino(genIdent,new int[] {0,6},board);
+    return new Tetromino(ident,new int[] {0,6},board);
   }
 }
 

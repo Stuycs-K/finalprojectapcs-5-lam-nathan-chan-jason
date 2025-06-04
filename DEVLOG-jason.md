@@ -24,3 +24,6 @@ Finalized some parts of game and finalized prototype and UML diagram.
 
 ### 2025-06-02 - Brief description
 The game now displays the next upcoming block block in the UI.
+
+### 2025-06-03 - Brief description
+Worked on ending the game when the player can no longer place down blocks.

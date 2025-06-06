@@ -27,3 +27,9 @@ The game now displays the next upcoming block block in the UI.
 
 ### 2025-06-03 - Brief description
 Worked on ending the game when the player can no longer place down blocks.
+
+### 2025-06-04 - Brief description
+Ending can now function by checking if any blocks overlap immediately after spawning. Will design the end screen later.
+
+### 2025-06-06 - Brief description
+Created simple end screen with the option for the user to quit the game by pressing ESC.

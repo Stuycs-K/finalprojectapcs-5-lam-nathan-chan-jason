@@ -77,12 +77,13 @@ void run(){
       activemino.transfer();
       activemino = nextmino;
       nextmino = newMino();
+      alreadyClickedHeld = false;
+      
       if(activemino.overlap()){
         text("YOU LOSE YOU SUCK AT THIS GAME", 469, 90);
-        delay(3000);
-        exit();
+        activemino.display();
+        endGame();
       }
-      alreadyClickedHeld = false;
     }
     score += board.clearRows();
   }
@@ -161,4 +162,9 @@ void shift(boolean right){
   quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
   fill(color(col[0],col[1],col[2]*.5));
   quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
+}
+
+void endGame(){
+  //delay(3000);
+  exit();
 }

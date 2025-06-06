@@ -6,19 +6,19 @@ private int frame = 0, speed = 15, score = 0;
 private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
-  final float[] empt = {0,0,20};
-  final float[] ci = new float[]{180,100,100};
-  final float[] co = new float[]{50,100,100};
-  final float[] cl = new float[]{39,100,100};
-  final float[] cj = new float[]{240,100,100};
-  final float[] cs = new float[]{120,100,100};
-  final float[] cz = new float[]{0,100,100};
-  final float[] ct = new float[]{277,100,85};
+  final float[] empt = {0,0,20,100};
+  final float[] ci = new float[]{180,100,100,100};
+  final float[] co = new float[]{50,100,100,100};
+  final float[] cl = new float[]{39,100,100,100};
+  final float[] cj = new float[]{240,100,100,100};
+  final float[] cs = new float[]{120,100,100,100};
+  final float[] cz = new float[]{0,100,100,100};
+  final float[] ct = new float[]{277,100,85,100};
 
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
-  colorMode(HSB,360,100,100);
+  colorMode(HSB,360,100,100,100);
   colorRef.put(0,"empty");
   colorRef.put(1,"i");
   colorRef.put(2,"l");
@@ -60,6 +60,7 @@ void draw(){
   text("Hold", 469, 300);
   board.display();
   activemino.display();
+  activemino.displayGhost();
   nextmino.displayInUI("next");
   if (heldmino != null){
     heldmino.displayInUI("hold");
@@ -170,19 +171,22 @@ void shift(boolean right){
     if (! activemino.onBoard(activemino.row, activemino.col)) activemino.move(1,0);
   }
 }
-  void displayMino(int initcol, int initrow, float[]col,int size){
-  float[] colo = new float[3];
-  for (int i = 0; i<3; i++){
-    colo[i]=col[i]/1.5;
+  void displayMino(int initcol, int initrow, float[]col,int size, boolean fade){
+  float[] colo = new float[4];
+  for (int i = 0; i<4; i++){
+    colo[i]=col[i];
   }
+
   noStroke();
-  fill(color(col[0],col[1],col[2]));
-  square(size*initcol, size*initrow, size);
-  fill(color(col[0],col[1],col[2]*.8));
+  fill(color(colo[0],colo[1],colo[2],colo[3]));
+  if(!fade){
+    square(size*initcol, size*initrow, size);
+    fill(color(colo[0],colo[1],colo[2]*.8,colo[3]));
+  }
   quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/6),(size*(initrow+1)-(size/6)),(size*initcol)+(size/6),(size*initrow)+(size/6));
   quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow)+(size/6));
-  fill(color(col[0],col[1]*.6,col[2]));
+  fill(color(colo[0],colo[1]*.6,colo[2],colo[3]));
   quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
-  fill(color(col[0],col[1],col[2]*.5));
+  if(!fade)fill(color(colo[0],colo[1],colo[2]*.5,colo[3]));
   quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
 }

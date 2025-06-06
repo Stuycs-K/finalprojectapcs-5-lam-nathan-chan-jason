@@ -55,7 +55,7 @@ class Board{
     for (int i = 0; i < 24; i++){
       for (int j = 0; j < 15; j++){
         float[] colarr = colors.get(colorRef.get(board[i][j]));
-        displayMino(j,i,colarr,SQUARE_SIZE);
+        displayMino(j,i,colarr,SQUARE_SIZE,false);
       }
     }
   }

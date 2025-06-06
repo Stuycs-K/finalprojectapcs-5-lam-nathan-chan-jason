@@ -136,16 +136,27 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     
   }  
   public void display(){
+    display(this.row, this.col, false);
+  }
+  
+  public void display(int drow, int dcol, boolean fade){
     int SQUARE_SIZE = 30;
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0;j<shape[current].length; j++){
         int select = shape[current][i][j];
         if(select != 0){
           float[] co = colors.get(colorRef.get(select));
-          displayMino(col+j, row+i, co,SQUARE_SIZE);
+          displayMino(dcol+j, drow+i, co,SQUARE_SIZE, fade);
         }
       }
     }
+  }
+  public void displayGhost(){
+    int grow = row, gcol = col;
+    while(onBoard(grow+1, gcol)){
+      grow++;
+    }
+    display(grow, gcol, true);
   }
   
   public void displayInUI(String where){
@@ -157,17 +168,17 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
           float[] co = colors.get(colorRef.get(select));
           if (where == "next"){
             if (this.shapeIdent == "i"){
-              displayMino(23 + j, 8 + i, co,SQUARE_SIZE);
+              displayMino(23 + j, 8 + i, co,SQUARE_SIZE,false);
             }
             else{
-              displayMino(24 + j, 9 + i, co,SQUARE_SIZE);
+              displayMino(24 + j, 9 + i, co,SQUARE_SIZE,false);
             }
           }else if (where == "hold"){
             if (this.shapeIdent == "i"){
-              displayMino(23 + j, 15 + i, co,SQUARE_SIZE);
+              displayMino(23 + j, 15 + i, co,SQUARE_SIZE,false);
             }
             else{
-              displayMino(24 + j, 16 + i, co,SQUARE_SIZE);
+              displayMino(24 + j, 16 + i, co,SQUARE_SIZE,false);
             }
           }
         }

@@ -1,6 +1,6 @@
 private Tetromino activemino, heldmino, nextmino;
 private Board board;
-private int frame = 0, speed = 15, score = 0;
+private int frame = 0, speed = 35, score = 0;
 private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
@@ -77,6 +77,11 @@ void run(){
       activemino.transfer();
       activemino = nextmino;
       nextmino = newMino();
+      if(activemino.overlap()){
+        text("YOU LOSE YOU SUCK AT THIS GAME", 469, 90);
+        delay(3000);
+        exit();
+      }
       alreadyClickedHeld = false;
     }
     score += board.clearRows();

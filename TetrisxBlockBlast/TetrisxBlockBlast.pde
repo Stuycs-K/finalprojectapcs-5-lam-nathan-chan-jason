@@ -1,6 +1,6 @@
 private Tetromino activemino, heldmino, nextmino;
 private Board board;
-private int frame = 0, speed = 35, score = 0;
+private int frame = 0, speed = 15, score = 0;
 private boolean alreadyClickedHeld, winning;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
@@ -68,9 +68,15 @@ void draw(){
     run();
   }
   else{
-    text("YOU LOSE YOU SUCK AT THIS GAME", 469, 90);
     activemino.display();
-    rect(200, 200, 200, 200);
+    fill(210);
+    stroke(130);
+    strokeWeight(10);
+    rect(50, 250, 350, 175);
+    fill(0);
+    text("You Lose! Sucks!", 60, 300);
+    text("Press ESC to exit", 60, 350);
+    text("and cry!", 150, 400);
     noLoop();
   }
 }
@@ -134,7 +140,6 @@ String genMino(){
   String[] tetrominoidents = new String[]{"o","j","l","z","s","i","t"};
   int idx = (int)(Math.random() * tetrominoidents.length);
   return tetrominoidents[idx];
-  //return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
 }
 
 Tetromino newMino(){

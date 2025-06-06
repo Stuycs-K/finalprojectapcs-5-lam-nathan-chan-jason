@@ -1,22 +1,24 @@
 private Tetromino activemino, heldmino, nextmino;
+private String[] bucket;
+private int bucketplace = 0;
 private Board board;
 private int frame = 0, speed = 15, score = 0;
 private boolean alreadyClickedHeld, winning;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
-  final float[] empt = {0,0,20};
-  final float[] ci = new float[]{180,100,100};
-  final float[] co = new float[]{50,100,100};
-  final float[] cl = new float[]{39,100,100};
-  final float[] cj = new float[]{240,100,100};
-  final float[] cs = new float[]{120,100,100};
-  final float[] cz = new float[]{0,100,100};
-  final float[] ct = new float[]{277,87,100};
+  final float[] empt = {0,0,20,100};
+  final float[] ci = new float[]{180,100,100,100};
+  final float[] co = new float[]{50,100,100,100};
+  final float[] cl = new float[]{39,100,100,100};
+  final float[] cj = new float[]{240,100,100,100};
+  final float[] cs = new float[]{120,100,100,100};
+  final float[] cz = new float[]{0,100,100,100};
+  final float[] ct = new float[]{277,100,85,100};
 
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
-  colorMode(HSB,360,100,100);
+  colorMode(HSB,360,100,100,100);
   colorRef.put(0,"empty");
   colorRef.put(1,"i");
   colorRef.put(2,"l");
@@ -44,8 +46,9 @@ void setup(){
   text("Hold", 469, 300);
 
   board = new Board();
-  activemino = newMino();
-  nextmino = newMino();
+  bucket = genBucket();
+  activemino = newMino(bucket[bucketplace]);
+  nextmino = newMino(bucket[bucketplace+1]);
   heldmino = null;
   alreadyClickedHeld = false;
   winning = true;
@@ -58,6 +61,7 @@ void draw(){
   text("Hold", 469, 300);
   board.display();
   activemino.display();
+  activemino.displayGhost();
   nextmino.displayInUI("next");
   if (heldmino != null){
     heldmino.displayInUI("hold");
@@ -90,7 +94,7 @@ void run(){
     }else{
       activemino.transfer();
       activemino = nextmino;
-      nextmino = newMino();
+      progressMinoes();
       alreadyClickedHeld = false;
       
       if(activemino.overlap()){
@@ -115,7 +119,7 @@ void keyPressed(){
   }else if(keyCode == 40){
     activemino.fastFall();
     activemino = nextmino;
-    nextmino = newMino();
+    progressMinoes();
     alreadyClickedHeld = false;
   }else if (key == 'c'){
     if (!alreadyClickedHeld){
@@ -127,13 +131,40 @@ void keyPressed(){
         heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = swapTemp;
       }
-      
-      nextmino = new Tetromino(genMino(),new int[]{0,5},board);
+      progressMinoes();
       alreadyClickedHeld = true;
     }
   }else if (keyCode == 27 && !winning){
     exit();
   }
+}
+String[] genBucket(){
+  ArrayList<String> tetrominoidents = new ArrayList<String>();
+  tetrominoidents.add("i");
+  tetrominoidents.add("o");
+  tetrominoidents.add("l");
+  tetrominoidents.add("j");
+  tetrominoidents.add("s");
+  tetrominoidents.add("z");
+  tetrominoidents.add("t");
+  String[] bucket = new String[tetrominoidents.size()];
+  int i = 0;
+  while (tetrominoidents.size()>0){
+    int idx = (int)(Math.random()*tetrominoidents.size());
+    bucket[i] = tetrominoidents.get(idx);
+    i++;
+    tetrominoidents.remove(idx);
+  }
+  return bucket;
+}
+
+void progressMinoes(){
+  bucketplace++;
+  if (bucketplace == 6){
+    bucketplace = -1;
+    bucket = genBucket();
+  }
+  nextmino = newMino(bucket[bucketplace+1]);
 }
 
 String genMino(){
@@ -142,12 +173,11 @@ String genMino(){
   return tetrominoidents[idx];
 }
 
-Tetromino newMino(){
-  String genIdent = genMino();
-  if (genIdent == "i"){
-    return new Tetromino(genIdent,new int[] {0,5},board);
+Tetromino newMino(String ident){
+  if (ident == "i"){
+    return new Tetromino(ident,new int[] {0,5},board);
   }else{
-    return new Tetromino(genIdent,new int[] {0,6},board);
+    return new Tetromino(ident,new int[] {0,6},board);
   }
 }
 
@@ -160,19 +190,22 @@ void shift(boolean right){
     if (! activemino.onBoard(activemino.row, activemino.col)) activemino.move(1,0);
   }
 }
-  void displayMino(int initcol, int initrow, float[]col,int size){
-  float[] colo = new float[3];
-  for (int i = 0; i<3; i++){
-    colo[i]=col[i]/1.5;
+  void displayMino(int initcol, int initrow, float[]col,int size, boolean fade){
+  float[] colo = new float[4];
+  for (int i = 0; i<4; i++){
+    colo[i]=col[i];
   }
+
   noStroke();
-  fill(color(col[0],col[1],col[2]));
-  square(size*initcol, size*initrow, size);
-  fill(color(col[0],col[1],col[2]*.8));
+  fill(color(colo[0],colo[1],colo[2],colo[3]));
+  if(!fade){
+    square(size*initcol, size*initrow, size);
+    fill(color(colo[0],colo[1],colo[2]*.8,colo[3]));
+  }
   quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/6),(size*(initrow+1)-(size/6)),(size*initcol)+(size/6),(size*initrow)+(size/6));
   quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow)+(size/6));
-  fill(color(col[0],col[1]*.6,col[2]));
+  fill(color(colo[0],colo[1]*.6,colo[2],colo[3]));
   quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
-  fill(color(col[0],col[1],col[2]*.5));
+  if(!fade)fill(color(colo[0],colo[1],colo[2]*.5,colo[3]));
   quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
 }

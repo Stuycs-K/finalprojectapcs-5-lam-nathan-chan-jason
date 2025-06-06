@@ -1,7 +1,7 @@
 private Tetromino activemino, heldmino, nextmino;
 private Board board;
 private int frame = 0, speed = 35, score = 0;
-private boolean alreadyClickedHeld;
+private boolean alreadyClickedHeld, winning;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20};
@@ -48,6 +48,7 @@ void setup(){
   nextmino = newMino();
   heldmino = null;
   alreadyClickedHeld = false;
+  winning = true;
 }
 
 void draw(){
@@ -63,8 +64,15 @@ void draw(){
   }
   fill(0);
   text(score, 469, 90);
-  run();
-
+  if (winning){
+    run();
+  }
+  else{
+    text("YOU LOSE YOU SUCK AT THIS GAME", 469, 90);
+    activemino.display();
+    rect(200, 200, 200, 200);
+    noLoop();
+  }
 }
 
 void run(){
@@ -80,9 +88,7 @@ void run(){
       alreadyClickedHeld = false;
       
       if(activemino.overlap()){
-        text("YOU LOSE YOU SUCK AT THIS GAME", 469, 90);
-        activemino.display();
-        endGame();
+        winning = false;
       }
     }
     score += board.clearRows();
@@ -119,6 +125,8 @@ void keyPressed(){
       nextmino = new Tetromino(genMino(),new int[]{0,5},board);
       alreadyClickedHeld = true;
     }
+  }else if (keyCode == 27 && !winning){
+    exit();
   }
 }
 
@@ -162,9 +170,4 @@ void shift(boolean right){
   quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
   fill(color(col[0],col[1],col[2]*.5));
   quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
-}
-
-void endGame(){
-  //delay(3000);
-  exit();
 }

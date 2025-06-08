@@ -2,7 +2,7 @@ private Tetromino activemino, heldmino, nextmino;
 private String[] bucket;
 private int bucketplace = 0;
 private Board board;
-private int frame = 0, speed = 15, score = 0;
+private int frame = 0, speed = 45, score = 0;
 private boolean alreadyClickedHeld, winning;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
@@ -44,6 +44,7 @@ void setup(){
   text("Score", 469, 40);
   text("Next", 469, 150);
   text("Hold", 469, 300);
+  text("Level", 469, 450);
 
   board = new Board();
   bucket = genBucket();
@@ -59,6 +60,8 @@ void draw(){
   text("Score", 469, 40);
   text("Next", 469, 150);
   text("Hold", 469, 300);
+  text("Level", 469, 450);
+  text(1 + (score / 10000), 469, 500);
   board.display();
   activemino.display();
   activemino.displayGhost();
@@ -102,6 +105,8 @@ void run(){
       }
     }
     score += board.clearRows();
+    speed = 45 - (score / 10000);
+    println(speed);
   }
 }
 
@@ -126,12 +131,12 @@ void keyPressed(){
       if (heldmino == null){
         heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = nextmino;
+        progressMinoes();
       }else{
         Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
         heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = swapTemp;
       }
-      progressMinoes();
       alreadyClickedHeld = true;
     }
   }else if (keyCode == 27 && !winning){

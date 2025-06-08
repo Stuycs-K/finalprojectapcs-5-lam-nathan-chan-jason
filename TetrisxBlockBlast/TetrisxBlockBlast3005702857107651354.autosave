@@ -2,8 +2,8 @@ private Tetromino activemino, heldmino, nextmino;
 private String[] bucket;
 private int bucketplace = 0;
 private Board board;
-private int frame = 0, speed = 45, score = 0;
-private boolean alreadyClickedHeld, winning;
+private int frame = 0, speed = 15, score = 0;
+private boolean alreadyClickedHeld;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20,100};
@@ -14,9 +14,10 @@ public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] cs = new float[]{120,100,100,100};
   final float[] cz = new float[]{0,100,100,100};
   final float[] ct = new float[]{277,100,85,100};
-  final float[]cO=  new float[] {50,75,100,100};
-  final float[] cL = new float[] {30,100,60,100};
-  final float[] cDi = new float[]{300,70,92,100};
+  final float[] cO = new float[]{50,100,75,100};
+  final float[] cL = new float[]{30,100,60,100};
+  final float[] cDi = new float[]{11,80,60,100};
+    
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
@@ -52,7 +53,6 @@ void setup(){
   text("Score", 469, 40);
   text("Next", 469, 150);
   text("Hold", 469, 300);
-  text("Level", 469, 450);
 
   board = new Board();
   bucket = genBucket();
@@ -60,7 +60,6 @@ void setup(){
   nextmino = newMino(bucket[bucketplace+1]);
   heldmino = null;
   alreadyClickedHeld = false;
-  winning = true;
 }
 
 void draw(){
@@ -68,8 +67,6 @@ void draw(){
   text("Score", 469, 40);
   text("Next", 469, 150);
   text("Hold", 469, 300);
-  text("Level", 469, 450);
-  text(1 + (score / 10000), 469, 500);
   board.display();
   activemino.display();
   activemino.displayGhost();
@@ -79,21 +76,8 @@ void draw(){
   }
   fill(0);
   text(score, 469, 90);
-  if (winning){
-    run();
-  }
-  else{
-    activemino.display();
-    fill(210);
-    stroke(130);
-    strokeWeight(10);
-    rect(50, 250, 350, 175);
-    fill(0);
-    text("You Lose! Sucks!", 60, 300);
-    text("Press ESC to exit", 60, 350);
-    text("and cry!", 150, 400);
-    noLoop();
-  }
+  run();
+
 }
 
 void run(){
@@ -107,13 +91,8 @@ void run(){
       activemino = nextmino;
       progressMinoes();
       alreadyClickedHeld = false;
-      
-      if(activemino.overlap()){
-        winning = false;
-      }
     }
     score += board.clearRows();
-    speed = 45 - (score / 10000);
   }
 }
 
@@ -138,16 +117,14 @@ void keyPressed(){
       if (heldmino == null){
         heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = nextmino;
-        progressMinoes();
       }else{
         Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
         heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
         activemino = swapTemp;
       }
+      progressMinoes();
       alreadyClickedHeld = true;
     }
-  }else if (keyCode == 27 && !winning){
-    exit();
   }
 }
 String[] genBucket(){
@@ -159,15 +136,9 @@ String[] genBucket(){
   tetrominoidents.add("s");
   tetrominoidents.add("z");
   tetrominoidents.add("t");
-  if(Math.random() <= .25){
-  tetrominoidents.add("O");
-  }
-  if(Math.random()<= .33){
-  tetrominoidents.add("L");
-  }
-  if(Math.random()<= .5){
-  tetrominoidents.add("Di");
-  }
+  if(Math.random()>= .5) tetrominoidents.add("L");
+  if(Math.random()>= .75) tetrominoidents.add("O");
+  if(Math.random()>= .33) tetrominoidents.add("Di");
   String[] bucket = new String[tetrominoidents.size()];
   int i = 0;
   while (tetrominoidents.size()>0){
@@ -188,17 +159,11 @@ void progressMinoes(){
   nextmino = newMino(bucket[bucketplace+1]);
 }
 
-String genMino(){
-  String[] tetrominoidents = new String[]{"o","j","l","z","s","i","t"};
-  int idx = (int)(Math.random() * tetrominoidents.length);
-  return tetrominoidents[idx];
-}
-
 Tetromino newMino(String ident){
   if (ident == "i"){
     return new Tetromino(ident,new int[] {0,5},board);
   }else{
-    return new Tetromino(ident,new int[] {0,6},board);
+    return new Tetromino(ident,new int[] {1,6},board);
   }
 }
 
@@ -223,10 +188,10 @@ void shift(boolean right){
     square(size*initcol, size*initrow, size);
     fill(color(colo[0],colo[1],colo[2]*.8,colo[3]));
   }
-  quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/6),(size*(initrow+1)-(size/6)),(size*initcol)+(size/6),(size*initrow)+(size/6));
-  quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow)+(size/6));
+  quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/4),(size*(initrow+1)-(size/4)),(size*initcol)+(size/4),(size*initrow)+(size/4));
+  quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/4),size*(initrow+1)-(size/4),size*(initcol+1)-(size/4),size*(initrow)+(size/4));
   fill(color(colo[0],colo[1]*.6,colo[2],colo[3]));
-  quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
+  quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/4),size*(initrow)+(size/4),size*initcol+(size/4),size*initrow+(size/4));
   if(!fade)fill(color(colo[0],colo[1],colo[2]*.5,colo[3]));
-  quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
+  quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/4), size*(initrow+1)-(size/4),size*(initcol+1)-(size/4),size*(initrow+1)-(size/4));
 }

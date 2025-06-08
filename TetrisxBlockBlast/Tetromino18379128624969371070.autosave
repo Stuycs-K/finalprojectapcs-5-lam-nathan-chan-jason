@@ -40,22 +40,26 @@ class Tetromino{
 {{0,7,0},{0,7,7},{0,7,0}},
 {new int[3],{7,7,7},{0,7,0}},
 {{0,7,0},{7,7,0},{0,7,0}}};
-private final int[][] Ocomp = new int[][]
-  {{8,8,8},{8,0,8},{8,8,8}};
 
-private final int[][][] O = new int[][][] {Ocomp,Ocomp,Ocomp,Ocomp};
-private final int[][][] L = new int[][][]{
+//newBlocks
+  private final int [][] Opart = new int[][]
+  {{8,8,8},{8,0,8},{8,8,8}};
+  private final int[][][] O = new int[][][] {Opart,Opart,Opart,Opart};
+  
+  private final int[][][] L = new int[][][]{
   {{9,0,0},{9,0,0},{9,9,9}},
   {{9,9,9},{9,0,0},{9,0,0}},
   {{9,9,9},{0,0,9},{0,0,9}},
   {{0,0,9},{0,0,9},{9,9,9}}
-};
-private final int[][][] Di = new int[][][]{
+  };
+  
+  private final int[][][] Di = new int[][][]{
   {{0,0,10},{0,10,0},{0,0,0}},
   {{0,0,0},{0,10,0},{0,0,10}},
   {{0,0,0},{0,10,0},{10,0,0}},
-  {{10,0,0},{0,10,0},{0,0,0}},
-};
+  {{10,0,0},{0,10,0},{0,0,0}}
+  };
+
 //tetris's actual rotation system uses offset values to do wallkicks. this is it here.
 //O is the initial rotation state, R and L are after one right and left rotation (CW and CCW) respectively, and F is a full 180° rotation.
 
@@ -98,6 +102,9 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     
     
     //simplifying selection of shape
+    initshape.put("Di",Di);
+    initshape.put("O",O);
+    initshape.put("L",L);
     initshape.put("i",i);
     initshape.put("l",l);
     initshape.put("j",j);
@@ -105,9 +112,6 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     initshape.put("s",s);
     initshape.put("z",z);
     initshape.put("t",t);
-    initshape.put("L",L);
-    initshape.put("O",O);
-    initshape.put("Di",Di);
     this.shape = initshape.get(shapeident);
     
     offsets.put("3x3",triple);
@@ -217,7 +221,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
   public int[] calcOffset(boolean CW, int testNo){
     int[][][] subOffset;
     if(this.shape[current].length == 3){
-      if(shapeIdent == "o"||shapeIdent == "Di"){
+      if(shapeIdent == "o" || shapeIdent == "Di"){
         subOffset = offsets.get("o");
         int[] testoff;
         if(CW){
@@ -255,15 +259,4 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     return shapeIdent;
   }
   
-  public boolean overlap(){
-    for(int i = 0; i<shape[current].length; i++){
-      for(int j = 0;j<shape[current].length; j++){
-        if (this.shape[current][i][j] != 0 && board.getmino(new int[]{row+i,col+j}) != 0){
-          return true;
-        }
-      }
-    }
-    
-    return false;
-  }
 }

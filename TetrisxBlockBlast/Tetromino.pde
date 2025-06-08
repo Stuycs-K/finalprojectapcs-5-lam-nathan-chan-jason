@@ -50,12 +50,19 @@ private final int[][][] L = new int[][][]{
   {{9,9,9},{0,0,9},{0,0,9}},
   {{0,0,9},{0,0,9},{9,9,9}}
 };
-private final int[][][] Di = new int[][][]{
+private final int[][][] Di2 = new int[][][]{
   {{0,0,10},{0,10,0},{0,0,0}},
   {{0,0,0},{0,10,0},{0,0,10}},
   {{0,0,0},{0,10,0},{10,0,0}},
   {{10,0,0},{0,10,0},{0,0,0}},
 };
+private final int[][][] Di3 = new int[][][]{
+  {{11,0,0},{0,11,0},{0,0,11}},
+  {{0,0,11},{0,11,0},{11,0,0}},
+  {{11,0,0},{0,11,0},{0,0,11}},
+  {{0,0,11},{0,11,0},{11,0,0}},
+};
+
 //tetris's actual rotation system uses offset values to do wallkicks. this is it here.
 //O is the initial rotation state, R and L are after one right and left rotation (CW and CCW) respectively, and F is a full 180° rotation.
 
@@ -107,7 +114,8 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     initshape.put("t",t);
     initshape.put("L",L);
     initshape.put("O",O);
-    initshape.put("Di",Di);
+    initshape.put("Di2",Di2);
+    initshape.put("Di3",Di3);
     this.shape = initshape.get(shapeident);
     
     offsets.put("3x3",triple);
@@ -217,7 +225,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
   public int[] calcOffset(boolean CW, int testNo){
     int[][][] subOffset;
     if(this.shape[current].length == 3){
-      if(shapeIdent == "o"||shapeIdent == "Di"){
+      if(shapeIdent == "o"||shapeIdent == "Di2"){
         subOffset = offsets.get("o");
         int[] testoff;
         if(CW){

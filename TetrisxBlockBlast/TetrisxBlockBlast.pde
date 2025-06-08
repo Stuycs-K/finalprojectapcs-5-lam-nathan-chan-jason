@@ -2,7 +2,7 @@ private Tetromino activemino, heldmino, nextmino;
 private String[] bucket;
 private int bucketplace = 0;
 private Board board;
-private int frame = 0, speed = 45, score = 0;
+private int frame = 0, speed = 30, score = 0;
 private boolean alreadyClickedHeld, winning;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
@@ -16,7 +16,8 @@ public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] ct = new float[]{277,100,85,100};
   final float[]cO=  new float[] {50,75,100,100};
   final float[] cL = new float[] {30,100,60,100};
-  final float[] cDi = new float[]{300,70,92,100};
+  final float[] cDi2 = new float[]{300,70,92,100};
+  final float[] cDi3 = new float[]{0,0,100,100};
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
@@ -31,7 +32,8 @@ void setup(){
   colorRef.put(7,"t");
   colorRef.put(8,"O");
   colorRef.put(9,"L");
-  colorRef.put(10,"Di");
+  colorRef.put(10,"Di2");
+  colorRef.put(11,"Di3");
 
   colors.put("empty",empt);
   colors.put("i",ci);
@@ -43,7 +45,8 @@ void setup(){
   colors.put("t",ct);
   colors.put("O",cO);
   colors.put("L",cL);
-  colors.put("Di",cDi);
+  colors.put("Di2",cDi2);
+  colors.put("Di3",cDi3);
 
   background(210);
   size(600, 720);
@@ -165,8 +168,11 @@ String[] genBucket(){
   if(Math.random()<= .33){
   tetrominoidents.add("L");
   }
-  if(Math.random()<= .5){
-  tetrominoidents.add("Di");
+  if(Math.random()<= .67){
+  tetrominoidents.add("Di2");
+  }
+  if(Math.random()<=.5){
+  tetrominoidents.add("Di3");
   }
   String[] bucket = new String[tetrominoidents.size()];
   int i = 0;

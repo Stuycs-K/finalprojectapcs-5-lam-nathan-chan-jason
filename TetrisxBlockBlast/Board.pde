@@ -27,6 +27,7 @@ class Board{
         pushDown(row);
       }
     }
+    rows+=rowsCleared;
     return Math.pow((double)rowsCleared,2.0)*1000;
   }
   public void setEqualTo(int[] row1, int[] row2){

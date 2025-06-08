@@ -2,8 +2,8 @@ private Tetromino activemino, heldmino, nextmino;
 private String[] bucket;
 private int bucketplace = 0;
 private Board board;
-private int frame = 0, speed = 30, score = 0;
-private boolean alreadyClickedHeld, winning;
+private int frame = 0, speed = 45, score = 0,level = 0, rows = 0,tempspeed = speed;
+private boolean alreadyClickedHeld, winning,fast;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20,100};
@@ -18,6 +18,8 @@ public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] cL = new float[] {30,100,60,100};
   final float[] cDi2 = new float[]{300,70,92,100};
   final float[] cDi3 = new float[]{0,0,100,100};
+  final float[] cZ = new float[]{0,75,100,100};
+  final float[] cS = new float[]{120,75,100,100};
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
@@ -34,7 +36,9 @@ void setup(){
   colorRef.put(9,"L");
   colorRef.put(10,"Di2");
   colorRef.put(11,"Di3");
-
+  colorRef.put(12,"Z");
+  colorRef.put(13,"S");
+  
   colors.put("empty",empt);
   colors.put("i",ci);
   colors.put("o",co);
@@ -47,6 +51,8 @@ void setup(){
   colors.put("L",cL);
   colors.put("Di2",cDi2);
   colors.put("Di3",cDi3);
+  colors.put("Z",cZ);
+  colors.put("S",cS);
 
   background(210);
   size(600, 720);
@@ -67,12 +73,17 @@ void setup(){
 }
 
 void draw(){
+  if(rows == 10){
+    rows = 0;
+    level++;
+    speed -= 3;
+  }
   background(210);
   text("Score", 469, 40);
   text("Next", 469, 150);
   text("Hold", 469, 300);
   text("Level", 469, 450);
-  text(1 + (score / 10000), 469, 500);
+  text(level, 469, 500);
   board.display();
   activemino.display();
   activemino.displayGhost();
@@ -101,7 +112,9 @@ void draw(){
 
 void run(){
   frame++;
-  if(frame%speed == 0){
+  if(fast&&speed > 10) tempspeed = 10;
+  else tempspeed = speed;
+  if(frame%tempspeed == 0){
     frame = 0;
     if(activemino.onBoard(activemino.row+1, activemino.col)){
       activemino.move(0,1);
@@ -116,7 +129,6 @@ void run(){
       }
     }
     score += board.clearRows();
-    speed = 45 - (score / 10000);
   }
 }
 
@@ -132,7 +144,7 @@ void keyPressed(){
   }else if(keyCode == 39){
     shift(true);
   }else if(keyCode == 40){
-    activemino.fastFall();
+    activemino.harddrop();
     activemino = nextmino;
     progressMinoes();
     alreadyClickedHeld = false;
@@ -151,6 +163,13 @@ void keyPressed(){
     }
   }else if (keyCode == 27 && !winning){
     exit();
+  }else if(keyCode == 16){
+    fast = true;
+  }
+}
+void keyReleased(){
+  if(keyCode == 16){
+    fast = false;
   }
 }
 String[] genBucket(){
@@ -162,18 +181,12 @@ String[] genBucket(){
   tetrominoidents.add("s");
   tetrominoidents.add("z");
   tetrominoidents.add("t");
-  if(Math.random() <= .25){
-  tetrominoidents.add("O");
-  }
-  if(Math.random()<= .33){
-  tetrominoidents.add("L");
-  }
-  if(Math.random()<= .67){
-  tetrominoidents.add("Di2");
-  }
-  if(Math.random()<=.5){
-  tetrominoidents.add("Di3");
-  }
+  if(Math.random() <= .25) tetrominoidents.add("O");
+  if(Math.random()<= .33) tetrominoidents.add("L");
+  if(Math.random()<= .67) tetrominoidents.add("Di2");
+  if(Math.random()<=.5) tetrominoidents.add("Di3");
+  if(Math.random()<=.5) tetrominoidents.add("Z");
+  if(Math.random()<=.5) tetrominoidents.add("S");
   String[] bucket = new String[tetrominoidents.size()];
   int i = 0;
   while (tetrominoidents.size()>0){

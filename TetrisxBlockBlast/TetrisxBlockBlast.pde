@@ -71,6 +71,7 @@ void setup(){
 }
 
 void draw(){
+  board.display();
   if (start){
     textSize(48);
     if(rows == 10){
@@ -110,19 +111,22 @@ void draw(){
     }
   }
   else{
-    background(210);
-    textSize(150);
-    text("TETRIS", 70, 150);
-    textSize(75);
+    fill(210);
+    stroke(130);
+    strokeWeight(10);
+    rect(50, 175, 350, 350);
+    fill(0);
+    textSize(42);
+    text("Welcome to Tetris!", 65, 225);
+    text("Press TAB to Start!", 65, 300);
     if (hard){
-      text("Hard Mode: ON", 50, 250);
+      text("Hard Mode: ON", 80, 400);
     }
     else{
-      text("Hard Mode: OFF", 50, 250);
+      text("Hard Mode: OFF", 80, 400);
     }
-    text("Press TAB to Start!", 15, 400);
-    textSize(30);
-    text("Click H to toggle modes!", 150, 300);
+    textSize(20);
+    text("Click H to toggle modes!", 120, 450);
   }
 }
 

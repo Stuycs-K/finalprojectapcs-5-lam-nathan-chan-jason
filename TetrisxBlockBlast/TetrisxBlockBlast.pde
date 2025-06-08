@@ -111,14 +111,18 @@ void draw(){
   }
   else{
     background(210);
-    textSize(100);
-    text("TETRIS", 150, 300);
+    textSize(150);
+    text("TETRIS", 70, 150);
+    textSize(75);
     if (hard){
-      text("true", 150, 400);
+      text("Hard Mode: ON", 50, 250);
     }
     else{
-      text("false", 150, 400);
+      text("Hard Mode: OFF", 50, 250);
     }
+    text("Press TAB to Start!", 15, 400);
+    textSize(30);
+    text("Click H to toggle modes!", 150, 300);
   }
 }
 
@@ -145,42 +149,47 @@ void run(){
 }
 
 void keyPressed(){
-  if(key == 120){
-    activemino.rotate(true);
-  }else if(key == 122){
-    activemino.rotate(false);
-  }
-  
-  if (keyCode == 37){
-    shift(false);
-  }else if(keyCode == 39){
-    shift(true);
-  }else if(keyCode == 40){
-    activemino.harddrop();
-    activemino = nextmino;
-    progressMinoes();
-    alreadyClickedHeld = false;
-  }else if (key == 'c'){
-    if (!alreadyClickedHeld){
-      if (heldmino == null){
-        heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
-        activemino = nextmino;
-        progressMinoes();
-      }else{
-        Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
-        heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
-        activemino = swapTemp;
-      }
-      alreadyClickedHeld = true;
+  if (start){
+    if(key == 120){
+      activemino.rotate(true);
+    }else if(key == 122){
+      activemino.rotate(false);
     }
-  }else if (keyCode == 27 && !winning){
-    exit();
-  }else if(keyCode == 16){
-    fast = true;
-  }else if (keyCode == 9 && !start){
-    start = true;
-  }else if (keyCode == 72 && !start){
-    hard = !hard;
+    
+    if (keyCode == 37){
+      shift(false);
+    }else if(keyCode == 39){
+      shift(true);
+    }else if(keyCode == 40){
+      activemino.harddrop();
+      activemino = nextmino;
+      progressMinoes();
+      alreadyClickedHeld = false;
+    }else if (key == 'c'){
+      if (!alreadyClickedHeld){
+        if (heldmino == null){
+          heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
+          activemino = nextmino;
+          progressMinoes();
+        }else{
+          Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
+          heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
+          activemino = swapTemp;
+        }
+        alreadyClickedHeld = true;
+      }
+    }else if (keyCode == 27 && !winning){
+      exit();
+    }else if(keyCode == 16){
+      fast = true;
+    }
+  }
+  else{
+    if (keyCode == 9){
+      start = true;
+    }else if (keyCode == 72){
+      hard = !hard;
+    }
   }
 }
 void keyReleased(){

@@ -20,3 +20,18 @@ added in tetromino rotation offset values according to tetris SRS system, implem
 
 ### 2025-06-01 - fall - new tetromino - game progression
 fixed some issues with clearRows, made the tetrominoes fall over time, made the game actually run.
+
+### 2025-06-02 - colors
+added all the colors of the blocks, and changed the tetromino sprite to look a bit different.
+
+### 2025-06-03 - new colors
+changed the color system to HSB to improve the visuals.
+
+### 2025-06-04 - bucket
+changed random gen of blocks from completely random to the bucket system in actual tetris.
+
+### 2025-06-06 - ghost
+made the little ghost icon that shows where the hard drop will put the blocks
+
+### 2025-06-08 - final touches
+fixed the adding of new blocks, big O, big L, little diagonal.

@@ -198,7 +198,7 @@ Tetromino newMino(String ident){
   if (ident == "i"){
     return new Tetromino(ident,new int[] {0,5},board);
   }else{
-    return new Tetromino(ident,new int[] {0,6},board);
+    return new Tetromino(ident,new int[] {1,6},board);
   }
 }
 

@@ -3,7 +3,7 @@ private String[] bucket;
 private int bucketplace = 0;
 private Board board;
 private int frame = 0, speed = 45, score = 0,level = 0, rows = 0,tempspeed = speed;
-private boolean alreadyClickedHeld, winning,fast;
+private boolean alreadyClickedHeld, winning,fast, start, hard;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20,100};
@@ -58,10 +58,6 @@ void setup(){
   size(600, 720);
   fill(0);
   textSize(48);
-  text("Score", 469, 40);
-  text("Next", 469, 150);
-  text("Hold", 469, 300);
-  text("Level", 469, 450);
 
   board = new Board();
   bucket = genBucket();
@@ -70,43 +66,52 @@ void setup(){
   heldmino = null;
   alreadyClickedHeld = false;
   winning = true;
+  start = false;
+  hard = false;
 }
 
 void draw(){
-  if(rows == 10){
-    rows = 0;
-    level++;
-    speed -= 3;
-  }
-  background(210);
-  text("Score", 469, 40);
-  text("Next", 469, 150);
-  text("Hold", 469, 300);
-  text("Level", 469, 450);
-  text(level, 469, 500);
-  board.display();
-  activemino.display();
-  activemino.displayGhost();
-  nextmino.displayInUI("next");
-  if (heldmino != null){
-    heldmino.displayInUI("hold");
-  }
-  fill(0);
-  text(score, 469, 90);
-  if (winning){
-    run();
+  if (start){
+    textSize(48);
+    if(rows == 10){
+      rows = 0;
+      level++;
+      speed -= 3;
+    }
+    background(210);
+    text("Score", 469, 40);
+    text("Next", 469, 150);
+    text("Hold", 469, 300);
+    text("Level", 469, 450);
+    text(level, 469, 500);
+    board.display();
+    activemino.display();
+    activemino.displayGhost();
+    nextmino.displayInUI("next");
+    if (heldmino != null){
+      heldmino.displayInUI("hold");
+    }
+    fill(0);
+    text(score, 469, 90);
+    if (winning){
+      run();
+    }
+    else{
+      activemino.display();
+      fill(210);
+      stroke(130);
+      strokeWeight(10);
+      rect(50, 250, 350, 175);
+      fill(0);
+      text("You Lose! Sucks!", 60, 300);
+      text("Press ESC to exit", 60, 350);
+      text("and cry!", 150, 400);
+      noLoop();
+    }
   }
   else{
-    activemino.display();
-    fill(210);
-    stroke(130);
-    strokeWeight(10);
-    rect(50, 250, 350, 175);
-    fill(0);
-    text("You Lose! Sucks!", 60, 300);
-    text("Press ESC to exit", 60, 350);
-    text("and cry!", 150, 400);
-    noLoop();
+    textSize(100);
+    text("TETRIS", 60, 300);
   }
 }
 
@@ -165,6 +170,10 @@ void keyPressed(){
     exit();
   }else if(keyCode == 16){
     fast = true;
+  }else if (keyCode == 9 && !start){
+    start = true;
+  }else if (keyCode == 72 && !start){
+    hard = !hard;
   }
 }
 void keyReleased(){

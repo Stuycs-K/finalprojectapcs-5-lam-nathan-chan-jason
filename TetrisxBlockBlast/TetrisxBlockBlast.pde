@@ -110,8 +110,15 @@ void draw(){
     }
   }
   else{
+    background(210);
     textSize(100);
-    text("TETRIS", 60, 300);
+    text("TETRIS", 150, 300);
+    if (hard){
+      text("true", 150, 400);
+    }
+    else{
+      text("false", 150, 400);
+    }
   }
 }
 
@@ -190,12 +197,14 @@ String[] genBucket(){
   tetrominoidents.add("s");
   tetrominoidents.add("z");
   tetrominoidents.add("t");
-  if(Math.random() <= .25) tetrominoidents.add("O");
-  if(Math.random()<= .33) tetrominoidents.add("L");
-  if(Math.random()<= .67) tetrominoidents.add("Di2");
-  if(Math.random()<=.5) tetrominoidents.add("Di3");
-  if(Math.random()<=.5) tetrominoidents.add("Z");
-  if(Math.random()<=.5) tetrominoidents.add("S");
+  if (hard){
+    if(Math.random() <= .25) tetrominoidents.add("O");
+    if(Math.random()<= .33) tetrominoidents.add("L");
+    if(Math.random()<= .67) tetrominoidents.add("Di2");
+    if(Math.random()<=.5) tetrominoidents.add("Di3");
+    if(Math.random()<=.5) tetrominoidents.add("Z");
+    if(Math.random()<=.5) tetrominoidents.add("S");
+  }
   String[] bucket = new String[tetrominoidents.size()];
   int i = 0;
   while (tetrominoidents.size()>0){

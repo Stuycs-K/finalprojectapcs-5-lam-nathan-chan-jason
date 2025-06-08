@@ -14,9 +14,10 @@ public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] cs = new float[]{120,100,100,100};
   final float[] cz = new float[]{0,100,100,100};
   final float[] ct = new float[]{277,100,85,100};
-  final float[]cO=  new float[] {50,75,100,100};
-  final float[] cL = new float[] {30,100,60,100};
-  final float[] cDi = new float[]{300,70,92,100};
+  final float[] cO = new float[]{50,100,75,100};
+  final float[] cL = new float[]{30,100,60,100};
+  final float[] cDi = new float[]{11,80,60,100};
+    
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
@@ -135,15 +136,9 @@ String[] genBucket(){
   tetrominoidents.add("s");
   tetrominoidents.add("z");
   tetrominoidents.add("t");
-  if(Math.random() <= .25){
-  tetrominoidents.add("O");
-  }
-  if(Math.random()<= .33){
-  tetrominoidents.add("L");
-  }
-  if(Math.random()<= .5){
-  tetrominoidents.add("Di");
-  }
+  if(Math.random()>= .5) tetrominoidents.add("L");
+  if(Math.random()>= .75) tetrominoidents.add("O");
+  if(Math.random()>= .33) tetrominoidents.add("Di");
   String[] bucket = new String[tetrominoidents.size()];
   int i = 0;
   while (tetrominoidents.size()>0){
@@ -164,18 +159,11 @@ void progressMinoes(){
   nextmino = newMino(bucket[bucketplace+1]);
 }
 
-String genMino(){
-  String[] tetrominoidents = new String[]{"o","j","l","z","s","i","t"};
-  int idx = (int)(Math.random() * tetrominoidents.length);
-  return tetrominoidents[idx];
-  //return new Tetromino(tetrominoidents[idx],new int[]{0,5},board);
-}
-
 Tetromino newMino(String ident){
   if (ident == "i"){
     return new Tetromino(ident,new int[] {0,5},board);
   }else{
-    return new Tetromino(ident,new int[] {0,6},board);
+    return new Tetromino(ident,new int[] {1,6},board);
   }
 }
 
@@ -200,10 +188,10 @@ void shift(boolean right){
     square(size*initcol, size*initrow, size);
     fill(color(colo[0],colo[1],colo[2]*.8,colo[3]));
   }
-  quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/6),(size*(initrow+1)-(size/6)),(size*initcol)+(size/6),(size*initrow)+(size/6));
-  quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow)+(size/6));
+  quad(size*initcol,size*initrow,size*initcol,(size*(initrow+1)),(size*initcol)+(size/4),(size*(initrow+1)-(size/4)),(size*initcol)+(size/4),(size*initrow)+(size/4));
+  quad(size*(initcol+1),size*initrow,size*(initcol+1),size*(initrow+1),size*(initcol+1)-(size/4),size*(initrow+1)-(size/4),size*(initcol+1)-(size/4),size*(initrow)+(size/4));
   fill(color(colo[0],colo[1]*.6,colo[2],colo[3]));
-  quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/6),size*(initrow)+(size/6),size*initcol+(size/6),size*initrow+(size/6));
+  quad(size*initcol,size*initrow, size*(initcol+1),size*(initrow),size*(initcol+1)-(size/4),size*(initrow)+(size/4),size*initcol+(size/4),size*initrow+(size/4));
   if(!fade)fill(color(colo[0],colo[1],colo[2]*.5,colo[3]));
-  quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/6), size*(initrow+1)-(size/6),size*(initcol+1)-(size/6),size*(initrow+1)-(size/6));
+  quad(size*(initcol+1),size*(initrow+1), size*initcol, size*(initrow+1),size*initcol+(size/4), size*(initrow+1)-(size/4),size*(initcol+1)-(size/4),size*(initrow+1)-(size/4));
 }

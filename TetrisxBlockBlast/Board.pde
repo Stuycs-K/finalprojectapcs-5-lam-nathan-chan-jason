@@ -1,13 +1,3 @@
-/*
-add the following to the board class
-  board(duh)
-  checkRow()
-  clearRow()
-  
-additional features we forgot
-  hold block
-*/
-
 static final int SQUARE_SIZE = 30;
 
 class Board{

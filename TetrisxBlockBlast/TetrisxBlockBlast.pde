@@ -106,7 +106,6 @@ void run(){
     }
     score += board.clearRows();
     speed = 45 - (score / 10000);
-    println(speed);
   }
 }
 

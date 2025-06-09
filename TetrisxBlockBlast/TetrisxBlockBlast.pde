@@ -74,7 +74,7 @@ void draw(){
   board.display();
   if (start){
     textSize(48);
-    if(rows == 10){
+    if(rows >= 10){
       rows = 0;
       level++;
       speed -= 3;

@@ -6,15 +6,15 @@ This is a game of Tetris, but with some extra modifications if you dare! There i
 # Intended usage:
 
 At the start screen
-Press TAB to start the game.
-Press H to toggle hard mode.
+- Press TAB to start the game.
+- Press H to toggle hard mode.
 
 During the game
-Press the Left/Right arrow keys to move the tetromino left/right.
-Press the Down arrow key to hard drop (place tetromino instantly).
-Press SHIFT to soft drop (speed up tetromino).
-Press Z and X to rotate the tetromino counterclockwise and clockwise, respectively.
-Press C to hold.
+- Press the Left/Right arrow keys to move the tetromino left/right.
+- Press the Down arrow key to hard drop (place tetromino instantly).
+- Press SHIFT to soft drop (speed up tetromino).
+- Press Z and X to rotate the tetromino counterclockwise and clockwise, respectively.
+- Press C to hold.
 
 After the game
-Press ESC to quit the program.
+- Press ESC to quit the program.

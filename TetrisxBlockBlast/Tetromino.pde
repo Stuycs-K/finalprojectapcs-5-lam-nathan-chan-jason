@@ -180,8 +180,8 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       row -= testoff[1];
       col += testoff[0];
     }else{
-      if(CW)current ++;
-      else current --;
+      if(CW)current --;
+      else current ++;
       current = (current +4)%4;
     }
   }  

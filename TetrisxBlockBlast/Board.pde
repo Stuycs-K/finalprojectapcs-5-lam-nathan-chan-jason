@@ -58,6 +58,9 @@ class Board{
     board[coord[0]][coord[1]] = val;
   }
   public boolean emptyIndex(int row, int col){
-    return (!(row >= 24 || col >=15 || col<0))&&(board[row][col]==0);
+    if(row<24 && row>=0 && col<15 && col>=0){
+      if(board[row][col]==0) return true;
+    }
+    return false; 
   }
 }

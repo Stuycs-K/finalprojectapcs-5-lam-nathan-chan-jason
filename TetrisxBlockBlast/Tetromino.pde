@@ -137,16 +137,19 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     offsets.put("5x5",penta);
     
   }
+  //moves..
   public void move(int deltax, int deltay){
     col += deltax;
     row += deltay;
   }
+  //instantly moves tetromino to the bottom, where the ghost is
   public void harddrop(){
     while(onBoard(row+1, col)){
       row++;
     }
     transfer();
   }
+  //transfers a tetromino from a object to just data on the board array.
    public void transfer(){
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0; j<shape[current].length;j++){
@@ -156,8 +159,9 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       }
     }
   }
-
+//rotates a tetromino by switching the index of the 3D array, and applies wallkick translations ripped directly from the original game.  if not possible, doesnt rotate.
   public void rotate(boolean CW){    
+    boolean canrotate = true;
     if(CW){
       current ++;
     }else{
@@ -170,15 +174,22 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       if (onBoard(row-testoff[1],col+testoff[0])){
         break;
       }
+      canrotate = false;
     }
-    row -= testoff[1];
-    col += testoff[0];
-    
+    if(canrotate){
+      row -= testoff[1];
+      col += testoff[0];
+    }else{
+      if(CW)current ++;
+      else current --;
+      current = (current +4)%4;
+    }
   }  
+  //no-arg display
   public void display(){
     display(this.row, this.col, false);
   }
-  
+  //displays at a specific location, specifically used in the ghost
   public void display(int drow, int dcol, boolean fade){
     int SQUARE_SIZE = 30;
     for(int i = 0; i<shape[current].length; i++){
@@ -191,6 +202,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       }
     }
   }
+  //displays the ghost in a little outline fashion
   public void displayGhost(){
     int grow = row, gcol = col;
     while(onBoard(grow+1, gcol)){
@@ -198,7 +210,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     }
     display(grow, gcol, true);
   }
-  
+  //used for displaying the next and stored tetrominos
   public void displayInUI(String where){
     int SQUARE_SIZE = 20;
     for(int i = 0; i<shape[current].length; i++){
@@ -225,7 +237,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
       }
     }
   }
-  
+  //checks if the tetromino is overlapping anything or is off the board
   public boolean onBoard(int crow,int ccol){
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0; j<shape[current][i].length; j++){
@@ -236,6 +248,7 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     }
     return true;
   }
+  //calculates the translation offsets from intarrays ripped from tetris
   public int[] calcOffset(boolean CW, int testNo){
     int[][][] subOffset;
     if(this.shape[current].length == 3){
@@ -272,11 +285,11 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     return testoff;
     
   }
-  
+ 
   public String getShapeIdent(){
     return shapeIdent;
   }
-  
+  //checks for any overlap, but not for off-boardness.  used only in determining loss conditions.
   public boolean overlap(){
     for(int i = 0; i<shape[current].length; i++){
       for(int j = 0;j<shape[current].length; j++){

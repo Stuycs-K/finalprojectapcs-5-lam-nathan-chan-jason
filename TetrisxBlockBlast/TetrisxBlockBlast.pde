@@ -5,6 +5,7 @@ private Board board;
 private int frame = 0, speed = 45, score = 0,level = 0, rows = 0,tempspeed = speed;
 private boolean alreadyClickedHeld, winning,fast, start, hard;
 
+//final float arrays representing default colors;
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20,100};
   final float[] ci = new float[]{180,100,100,100};
@@ -23,6 +24,7 @@ public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
 public Hashtable<Integer,String> colorRef = new Hashtable<Integer,String>();
 
 void setup(){
+  //adding a reference hashtable to relate the indices of the block types to colors
   colorMode(HSB,360,100,100,100);
   colorRef.put(0,"empty");
   colorRef.put(1,"i");
@@ -38,7 +40,7 @@ void setup(){
   colorRef.put(11,"Di3");
   colorRef.put(12,"Z");
   colorRef.put(13,"S");
-  
+  //adding the color arrays to a hashtable
   colors.put("empty",empt);
   colors.put("i",ci);
   colors.put("o",co);
@@ -69,7 +71,7 @@ void setup(){
   start = false;
   hard = false;
 }
-
+  
 void draw(){
   board.display();
   if (start){
@@ -79,6 +81,7 @@ void draw(){
       level++;
       speed -= 3;
     }
+    //displays everything
     background(210);
     text("Score", 469, 40);
     text("Next", 469, 150);
@@ -98,6 +101,7 @@ void draw(){
       run();
     }
     else{
+      //losing runs this function
       activemino.display();
       fill(210);
       stroke(130);
@@ -109,7 +113,7 @@ void draw(){
       text("and cry!", 150, 400);
       noLoop();
     }
-  }
+  }//starting screen code
   else{
     fill(210);
     stroke(130);
@@ -129,7 +133,7 @@ void draw(){
     text("Click H to toggle modes!", 120, 450);
   }
 }
-
+//uses framerule to determine speed of block falling, runs fall and checks for block locking.
 void run(){
   frame++;
   if(fast&&speed > 10) tempspeed = 10;
@@ -151,7 +155,7 @@ void run(){
     score += board.clearRows();
   }
 }
-
+//all inputs, left and right translation and rotation
 void keyPressed(){
   if (start){
     if(key == 120){
@@ -186,9 +190,12 @@ void keyPressed(){
       exit();
     }else if(keyCode == 16){
       fast = true;
+    }else if(key == '0'){
+      level = 10;
     }
   }
   else{
+    //starting inputs
     if (keyCode == 9){
       start = true;
     }else if (keyCode == 72){
@@ -196,11 +203,13 @@ void keyPressed(){
     }
   }
 }
+//allows for softdrop
 void keyReleased(){
   if(keyCode == 16){
     fast = false;
   }
 }
+//actual tetris randomgen method.  using bucket system.  adds extra blocks in hard mode.
 String[] genBucket(){
   ArrayList<String> tetrominoidents = new ArrayList<String>();
   tetrominoidents.add("i");
@@ -229,6 +238,7 @@ String[] genBucket(){
   return bucket;
 }
 
+//moves next piece into active piece, generates next piece, makes new bucket as necessary
 void progressMinoes(){
   bucketplace++;
   if (bucketplace == bucket.length-1){
@@ -237,21 +247,15 @@ void progressMinoes(){
   }
   nextmino = newMino(bucket[bucketplace+1]);
 }
-
-String genMino(){
-  String[] tetrominoidents = new String[]{"o","j","l","z","s","i","t"};
-  int idx = (int)(Math.random() * tetrominoidents.length);
-  return tetrominoidents[idx];
-}
-
+//makes a tetromino of a specified shape
 Tetromino newMino(String ident){
   if (ident == "i"){
-    return new Tetromino(ident,new int[] {0,5},board);
+    return new Tetromino(ident,new int[] {-2,5},board);
   }else{
-    return new Tetromino(ident,new int[] {1,6},board);
+    return new Tetromino(ident,new int[] {-1,6},board);
   }
 }
-
+//moves a tetromino
 void shift(boolean right){
   if(right){
     activemino.move(1,0);
@@ -261,12 +265,14 @@ void shift(boolean right){
     if (! activemino.onBoard(activemino.row, activemino.col)) activemino.move(1,0);
   }
 }
+//the draw function for a single square.  basically draws out the sprite with a rectangle and a few trapezoids.  uses HSB to make a shadowy effect.
   void displayMino(int initcol, int initrow, float[]col,int size, boolean fade){
   float[] colo = new float[4];
   for (int i = 0; i<4; i++){
     colo[i]=col[i];
   }
-
+  colo[0] += 10*level;
+  colo[0] = colo[0]%360;
   noStroke();
   fill(color(colo[0],colo[1],colo[2],colo[3]));
   if(!fade){

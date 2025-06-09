@@ -34,4 +34,5 @@ changed random gen of blocks from completely random to the bucket system in actu
 made the little ghost icon that shows where the hard drop will put the blocks
 
 ### 2025-06-08 - final touches
-fixed the adding of new blocks, big O, big L, little diagonal.
+fixed the adding of new blocks, big O, big L, little diagonal.  added softdrop.
+added speed scaling and reworked levels

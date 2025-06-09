@@ -7,6 +7,7 @@ class Board{
     this.board = new int[24][15];
   }
   
+  //checks if a row is filled
   public int rowSum(int row){
     int sumOfBlocks = 0;
     for (int column = 0; column < 15; column++){
@@ -18,6 +19,7 @@ class Board{
     return sumOfBlocks;
   }
   
+  //checks every row if it is filled, if so, clears that row and adds to score
   public double clearRows(){
     int rowsCleared = 0;
     
@@ -30,19 +32,16 @@ class Board{
     rows+=rowsCleared;
     return Math.pow((double)rowsCleared,2.0)*1000;
   }
-  public void setEqualTo(int[] row1, int[] row2){
-    for (int i = 0; i<row1.length; i++){
-      row2[i] = row1[i];
-    }
-  }
+  
+  //pushes down above rows
   public void pushDown(int row){
     for(int i = row; i>0; i--){
       board[i] = board[i-1];
     }
     board[0] = new int[15];
   }
+  
   void display(){
-    
     for (int i = 0; i < 24; i++){
       for (int j = 0; j < 15; j++){
         float[] colarr = colors.get(colorRef.get(board[i][j]));

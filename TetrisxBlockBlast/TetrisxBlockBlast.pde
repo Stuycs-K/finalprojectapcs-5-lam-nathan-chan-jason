@@ -83,6 +83,7 @@ void draw(){
     }
     //displays everything
     background(210);
+    fill(0);
     text("Score", 469, 40);
     text("Next", 469, 150);
     text("Hold", 469, 300);

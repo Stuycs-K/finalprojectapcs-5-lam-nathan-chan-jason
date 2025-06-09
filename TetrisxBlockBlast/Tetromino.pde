@@ -289,16 +289,4 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
   public String getShapeIdent(){
     return shapeIdent;
   }
-  //checks for any overlap, but not for off-boardness.  used only in determining loss conditions.
-  public boolean overlap(){
-    for(int i = 0; i<shape[current].length; i++){
-      for(int j = 0;j<shape[current].length; j++){
-        if (this.shape[current][i][j] != 0 && board.getmino(new int[]{row+i,col+j}) != 0){
-          return true;
-        }
-      }
-    }
-    
-    return false;
-  }
 }

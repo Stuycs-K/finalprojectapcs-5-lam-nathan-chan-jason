@@ -149,7 +149,7 @@ void run(){
       progressMinoes();
       alreadyClickedHeld = false;
       
-      if(activemino.overlap()){
+      if(!activemino.onBoard(activemino.row,activemino.col)){
         winning = false;
       }
     }
@@ -253,7 +253,7 @@ Tetromino newMino(String ident){
   if (ident == "i"){
     return new Tetromino(ident,new int[] {-2,5},board);
   }else{
-    return new Tetromino(ident,new int[] {-1,6},board);
+    return new Tetromino(ident,new int[] {0,6},board);
   }
 }
 //moves a tetromino

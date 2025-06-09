@@ -35,4 +35,4 @@ Ending can now function by checking if any blocks overlap immediately after spaw
 Created simple end screen with the option for the user to quit the game by pressing ESC.
 
 ### 2025-06-08 - Brief description
-Created start screen and finalized the game.
+Created start screen and finalized the game. Completed the README.

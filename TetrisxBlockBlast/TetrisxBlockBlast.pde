@@ -3,7 +3,7 @@ private String[] bucket;
 private int bucketplace = 0;
 private Board board;
 private int frame = 0, speed = 45, score = 0,level = 0, rows = 0,tempspeed = speed;
-private boolean alreadyClickedHeld, winning,fast;
+private boolean alreadyClickedHeld, winning,fast, start, hard;
 
 public Hashtable<String, float[]> colors = new Hashtable<String, float[]>();
   final float[] empt = {0,0,20,100};
@@ -58,10 +58,6 @@ void setup(){
   size(600, 720);
   fill(0);
   textSize(48);
-  text("Score", 469, 40);
-  text("Next", 469, 150);
-  text("Hold", 469, 300);
-  text("Level", 469, 450);
 
   board = new Board();
   bucket = genBucket();
@@ -70,43 +66,67 @@ void setup(){
   heldmino = null;
   alreadyClickedHeld = false;
   winning = true;
+  start = false;
+  hard = false;
 }
 
 void draw(){
-  if(rows == 10){
-    rows = 0;
-    level++;
-    speed -= 3;
-  }
-  background(210);
-  text("Score", 469, 40);
-  text("Next", 469, 150);
-  text("Hold", 469, 300);
-  text("Level", 469, 450);
-  text(level, 469, 500);
   board.display();
-  activemino.display();
-  activemino.displayGhost();
-  nextmino.displayInUI("next");
-  if (heldmino != null){
-    heldmino.displayInUI("hold");
-  }
-  fill(0);
-  text(score, 469, 90);
-  if (winning){
-    run();
+  if (start){
+    textSize(48);
+    if(rows == 10){
+      rows = 0;
+      level++;
+      speed -= 3;
+    }
+    background(210);
+    text("Score", 469, 40);
+    text("Next", 469, 150);
+    text("Hold", 469, 300);
+    text("Level", 469, 450);
+    text(level, 469, 500);
+    board.display();
+    activemino.display();
+    activemino.displayGhost();
+    nextmino.displayInUI("next");
+    if (heldmino != null){
+      heldmino.displayInUI("hold");
+    }
+    fill(0);
+    text(score, 469, 90);
+    if (winning){
+      run();
+    }
+    else{
+      activemino.display();
+      fill(210);
+      stroke(130);
+      strokeWeight(10);
+      rect(50, 250, 350, 175);
+      fill(0);
+      text("You Lose! Sucks!", 60, 300);
+      text("Press ESC to exit", 60, 350);
+      text("and cry!", 150, 400);
+      noLoop();
+    }
   }
   else{
-    activemino.display();
     fill(210);
     stroke(130);
     strokeWeight(10);
-    rect(50, 250, 350, 175);
+    rect(50, 175, 350, 350);
     fill(0);
-    text("You Lose! Sucks!", 60, 300);
-    text("Press ESC to exit", 60, 350);
-    text("and cry!", 150, 400);
-    noLoop();
+    textSize(42);
+    text("Welcome to Tetris!", 65, 225);
+    text("Press TAB to Start!", 65, 300);
+    if (hard){
+      text("Hard Mode: ON", 80, 400);
+    }
+    else{
+      text("Hard Mode: OFF", 80, 400);
+    }
+    textSize(20);
+    text("Click H to toggle modes!", 120, 450);
   }
 }
 
@@ -133,38 +153,47 @@ void run(){
 }
 
 void keyPressed(){
-  if(key == 120){
-    activemino.rotate(true);
-  }else if(key == 122){
-    activemino.rotate(false);
-  }
-  
-  if (keyCode == 37){
-    shift(false);
-  }else if(keyCode == 39){
-    shift(true);
-  }else if(keyCode == 40){
-    activemino.harddrop();
-    activemino = nextmino;
-    progressMinoes();
-    alreadyClickedHeld = false;
-  }else if (key == 'c'){
-    if (!alreadyClickedHeld){
-      if (heldmino == null){
-        heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
-        activemino = nextmino;
-        progressMinoes();
-      }else{
-        Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
-        heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
-        activemino = swapTemp;
-      }
-      alreadyClickedHeld = true;
+  if (start){
+    if(key == 120){
+      activemino.rotate(true);
+    }else if(key == 122){
+      activemino.rotate(false);
     }
-  }else if (keyCode == 27 && !winning){
-    exit();
-  }else if(keyCode == 16){
-    fast = true;
+    
+    if (keyCode == 37){
+      shift(false);
+    }else if(keyCode == 39){
+      shift(true);
+    }else if(keyCode == 40){
+      activemino.harddrop();
+      activemino = nextmino;
+      progressMinoes();
+      alreadyClickedHeld = false;
+    }else if (key == 'c'){
+      if (!alreadyClickedHeld){
+        if (heldmino == null){
+          heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
+          activemino = nextmino;
+          progressMinoes();
+        }else{
+          Tetromino swapTemp = new Tetromino(heldmino.getShapeIdent(), new int[]{0,5},board);;
+          heldmino = new Tetromino(activemino.getShapeIdent(), new int[]{0,5},board);
+          activemino = swapTemp;
+        }
+        alreadyClickedHeld = true;
+      }
+    }else if (keyCode == 27 && !winning){
+      exit();
+    }else if(keyCode == 16){
+      fast = true;
+    }
+  }
+  else{
+    if (keyCode == 9){
+      start = true;
+    }else if (keyCode == 72){
+      hard = !hard;
+    }
   }
 }
 void keyReleased(){
@@ -181,12 +210,14 @@ String[] genBucket(){
   tetrominoidents.add("s");
   tetrominoidents.add("z");
   tetrominoidents.add("t");
-  if(Math.random() <= .25) tetrominoidents.add("O");
-  if(Math.random()<= .33) tetrominoidents.add("L");
-  if(Math.random()<= .67) tetrominoidents.add("Di2");
-  if(Math.random()<=.5) tetrominoidents.add("Di3");
-  if(Math.random()<=.5) tetrominoidents.add("Z");
-  if(Math.random()<=.5) tetrominoidents.add("S");
+  if (hard){
+    if(Math.random() <= .25) tetrominoidents.add("O");
+    if(Math.random()<= .33) tetrominoidents.add("L");
+    if(Math.random()<= .67) tetrominoidents.add("Di2");
+    if(Math.random()<=.5) tetrominoidents.add("Di3");
+    if(Math.random()<=.5) tetrominoidents.add("Z");
+    if(Math.random()<=.5) tetrominoidents.add("S");
+  }
   String[] bucket = new String[tetrominoidents.size()];
   int i = 0;
   while (tetrominoidents.size()>0){

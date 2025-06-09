@@ -169,12 +169,15 @@ private Hashtable<String, int[][][]> offsets = new Hashtable<String, int[][][]>(
     }
     current = (current+4)%4;
     int[] testoff = new int[2];
-    for(int i = 0; i<5; i++){
+    for(int i = 0; i<6; i++){
+      if(i==5){
+        canrotate = false;
+        break;
+      }
       testoff = calcOffset(CW, i);
       if (onBoard(row-testoff[1],col+testoff[0])){
         break;
       }
-      canrotate = false;
     }
     if(canrotate){
       row -= testoff[1];

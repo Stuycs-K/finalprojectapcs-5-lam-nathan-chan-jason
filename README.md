@@ -18,3 +18,6 @@ During the game
 
 After the game
 - Press ESC to quit the program.
+
+# Video link:
+https://drive.google.com/file/d/1B9FQhp6MQgLZXG4EBI_bv3UTBoLKrWs3/view?usp=sharing
